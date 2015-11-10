@@ -29,5 +29,7 @@ namespace Iteration1.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Iteration1.Models.Game.Card> Cards { get; set; }
     }
 }

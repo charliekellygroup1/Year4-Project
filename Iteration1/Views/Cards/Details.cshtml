@@ -1,0 +1,42 @@
+﻿@model Iteration1.Models.Game.Card
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Card</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CardSuit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardSuit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
