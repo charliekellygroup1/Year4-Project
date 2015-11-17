@@ -384,12 +384,11 @@
     }
 </style>
 <div class="row">
-    <div class="col-sm-3"><h2>Single Player Game</h2></div>
+    <div class="col-sm-3"><h2>Novice Level Game</h2></div>
     <div class="col-sm-6">
         <div class="text-center">
             <div class="btn-group">
-                <button type="button" class="btn btn-success">Start</button>
-                <button type="button" class="btn btn-success">Pause/Save</button>                  
+                <button type="button" class="btn btn-success">Pause/Save</button>
             </div>
         </div>
     </div>
@@ -437,7 +436,7 @@
                 <img id="player3_card13" src="@Url.Content(@ViewBag.Words[38])" alt="Card Face Down" />
             </div>
         </div>
-        <div class="col-sm-6">trick cards here </div>
+        <div class="col-sm-6"> </div>
         <div class="col-sm-3">
             <div id="playerDisplay">
                 <img id="player4_card1" src="@Url.Content(@ViewBag.Words[39])" alt="Card Face Down" />
@@ -462,31 +461,47 @@
         <div class="col-sm-3"> </div>
         <div class="col-sm-6">
             <div id="playerDisplay">
-                <img id="player1_card1" src="@Url.Content(@ViewBag.Words[0])" alt="Card 1" />
-                <img id="player1_card2" src="@Url.Content(@ViewBag.Words[1])" alt="Card 2" />
-                <img id="player1_card3" src="@Url.Content(@ViewBag.Words[2])" alt="Card 3" />
-                <img id="player1_card4" src="@Url.Content(@ViewBag.Words[3])" alt="Card 4" />
-                <img id="player1_card5" src="@Url.Content(@ViewBag.Words[4])" alt="Card 5" />
-                <img id="player1_card6" src="@Url.Content(@ViewBag.Words[5])" alt="Card 6" />
-                <img id="player1_card7" src="@Url.Content(@ViewBag.Words[6])" alt="Card 7" />
-                <img id="player1_card8" src="@Url.Content(@ViewBag.Words[7])" alt="Card 8" />
-                <img id="player1_card9" src="@Url.Content(@ViewBag.Words[8])" alt="Card 9" />
-                <img id="player1_card10" src="@Url.Content(@ViewBag.Words[9])" alt="Card 10" />
-                <img id="player1_card11" src="@Url.Content(@ViewBag.Words[10])" alt="Card 11" />
-                <img id="player1_card12" src="@Url.Content(@ViewBag.Words[11])" alt="Card 12" />
-                <img id="player1_card13" src="@Url.Content(@ViewBag.Words[12])" alt="Card 13" />
+                <form action="PlayCard/1" method="post">
+                    <input type="image" id="player1_card1" src="@Url.Content(@ViewBag.Words[0])" alt="Card 1" />
+                </form>
+                <form action="PlayCard/2" method="post">
+                    <input type="image" id="player1_card2" src="@Url.Content(@ViewBag.Words[1])" alt="Card 2" />
+                </form>
+                <form action="PlayCard/3" method="post">
+                    <input type="image" id="player1_card3" src="@Url.Content(@ViewBag.Words[2])" alt="Card 3" />
+                </form>
+                <form action="PlayCard/4" method="post">
+                    <input type="image" id="player1_card4" src="@Url.Content(@ViewBag.Words[3])" alt="Card 4" />
+                </form>
+                <form action="PlayCard/5" method="post">
+                    <input type="image" id="player1_card5" src="@Url.Content(@ViewBag.Words[4])" alt="Card 5" />
+                </form>
+                <form action="PlayCard/6" method="post">
+                    <input type="image" id="player1_card6" src="@Url.Content(@ViewBag.Words[5])" alt="Card 6" />
+                </form>
+                <form action="PlayCard/7" method="post">
+                    <input type="image" id="player1_card7" src="@Url.Content(@ViewBag.Words[6])" alt="Card 7" />
+                </form>
+                <form action="PlayCard/8" method="post">
+                    <input type="image" id="player1_card8" src="@Url.Content(@ViewBag.Words[7])" alt="Card 8" />
+                </form>
+                <form action="PlayCard/9" method="post">
+                    <input type="image" id="player1_card9" src="@Url.Content(@ViewBag.Words[8])" alt="Card 9" />
+                </form>
+                <form action="PlayCard/10" method="post">
+                    <input type="image" id="player1_card10" src="@Url.Content(@ViewBag.Words[9])" alt="Card 10" />
+                </form>
+                <form action="PlayCard/11" method="post">
+                    <input type="image" id="player1_card11" src="@Url.Content(@ViewBag.Words[10])" alt="Card 11" />
+                </form>
+                <form action="PlayCard/12" method="post">
+                    <input type="image" id="player1_card12" src="@Url.Content(@ViewBag.Words[11])" alt="Card 12" />
+                </form>
+                <form action="PlayCard/13" method="post">
+                    <input type="image" id="player1_card13" src="@Url.Content(@ViewBag.Words[12])" alt="Card 13" />
+                </form>
             </div>
         </div>
         <div class="col-sm-3"> </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-

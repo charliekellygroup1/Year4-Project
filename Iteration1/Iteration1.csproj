@@ -180,13 +180,20 @@
     <Compile Include="Controllers\GameLevelController\CardsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Data Access Layer\CardContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511162221061_Initial.cs" />
+    <Compile Include="Migrations\201511162221061_Initial.Designer.cs">
+      <DependentUpon>201511162221061_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Game\Card.cs" />
     <Compile Include="Models\Game\Deck.cs" />
     <Compile Include="Models\Game\Player.cs" />
+    <Compile Include="Models\Game\Trick.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -199,6 +206,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\AF1_EEK.WAV" />
     <Content Include="Content\images\bitmap1.bmp" />
+    <Content Include="Content\images\blankCard.jpg" />
     <Content Include="Content\images\Bmp1.bmp" />
     <Content Include="Content\images\Bmp10.bmp" />
     <Content Include="Content\images\Bmp11.bmp" />
@@ -340,12 +348,8 @@
     <Content Include="Views\Home\MultiPlayer.cshtml" />
     <Content Include="Views\Home\SinglePlayer.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
-    <Content Include="Views\Cards\Create.cshtml" />
-    <Content Include="Views\Cards\Delete.cshtml" />
-    <Content Include="Views\Cards\Details.cshtml" />
-    <Content Include="Views\Cards\Edit.cshtml" />
-    <Content Include="Views\Cards\Index.cshtml" />
     <Content Include="Views\Cards\NoviceLevel.cshtml" />
+    <Content Include="Views\Cards\PlayCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -354,6 +358,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511162221061_Initial.resx">
+      <DependentUpon>201511162221061_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

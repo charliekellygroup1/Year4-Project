@@ -9,39 +9,33 @@ namespace Iteration1.Models.Game
 {
     public enum Suit
     {
-        Hearts, Diamonds, Spades, Clubs
+        Hearts, Diamonds, Spades, Clubs, Blank
     }
     public enum CardValue
     {
-        Deuce = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace = 14
+        None = 0, One = 0, Deuce = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace = 14
     }
     public class Card
     {
-        public Card(Suit cardSuit, CardValue cardValue, string imagePath)
+        public Card(int playerRef, Suit cardSuit, CardValue cardValue, string imagePath, bool played)
         {
+            this.PlayerRef = playerRef;
             this.CardSuit = cardSuit;
             this.CardValue = cardValue;
             this.ImagePath = imagePath;
+            this.CardPlayed = played;
         }
+
+        public Card()
+        {
+        }
+
         //Cards are immutable, a cards suit and value remains the same in this game
         public Suit CardSuit { get; set; }
         public CardValue CardValue { get; set; }
         public string ImagePath { get; set; }
         public int ID { get; private set; }
-
-        public Collection<Card> cards
-        {
-            get
-            {
-                return new Collection<Card>(cards);
-            }
-        }
-        public class CardDBContext : DbContext
-        {
-            public CardDBContext() : base("Default Connection")
-            { }
-
-            public DbSet<Card> card { get; set; }
-        }
+        public int PlayerRef { get; private set; }
+        public bool CardPlayed { get; set; }
     }
 }
