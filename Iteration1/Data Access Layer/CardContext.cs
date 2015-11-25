@@ -6,6 +6,7 @@ using Iteration1.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Iteration1.Models.Game;
+using System.Data.SqlClient;
 
 namespace Iteration1.Data_Access_Layer
 {
@@ -15,7 +16,8 @@ namespace Iteration1.Data_Access_Layer
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
-        public CardContext() : base("DefaultConnection")
+        // public CardContext() : base("DefaultConnection")
+        public CardContext() : base("ConnectionStringName")
             { }
 
         public DbSet<Card> Cards { get; set; }
@@ -32,15 +34,18 @@ namespace Iteration1.Data_Access_Layer
             db.Entry(playedCard).State = EntityState.Modified;
             db.SaveChanges();
 
-            Trick trick = new Trick(addTrick, id);
-            db.Tricks.Add(trick);
+            int next = 1;
+            Trick trick = db.Tricks.Find(next);
+            trick.TrickCard = addTrick;
+            trick.TrickIndex = id;
+            db.Entry(trick).State = EntityState.Modified;
             db.SaveChanges();
         }
         public List<string> GetTrickCards()
         {
             CardContext db = new CardContext();
             var Cards = from q in db.Tricks
-                        orderby q.TrickIndex
+                        orderby q.ID
                         select q.TrickCard;
 
             List<string> imageUrls = Cards.ToList();
@@ -50,9 +55,9 @@ namespace Iteration1.Data_Access_Layer
         {
             CardContext db = new CardContext();
             var Tricks = from q in db.Tricks
-                         orderby q.TrickIndex
+                         orderby q.ID
                          select q.TrickIndex;
-
+            
             List<int> trickIndexes = Tricks.ToList();
             return trickIndexes;
         }
@@ -75,6 +80,22 @@ namespace Iteration1.Data_Access_Layer
 
             List<bool> cardsPlayed = Cards.ToList();
             return cardsPlayed;
+        }
+        public void ResetCardsPlayed()
+        {
+            CardContext db = new CardContext();
+            foreach (var card in db.Cards.Where(x => x.CardPlayed == true).ToList())
+            {
+                card.CardPlayed = false;
+            }
+            db.SaveChanges();
+            db = new CardContext();
+            foreach (var trick in db.Tricks.Where(x => x.TrickIndex > 0).ToList())
+            {
+                trick.TrickIndex = 0;
+                trick.TrickCard = "~Content / images / blankCard.jpg";
+            }
+            db.SaveChanges();
         }
     }
 }

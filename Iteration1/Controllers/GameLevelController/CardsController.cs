@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Iteration1.Data_Access_Layer;
+using System.Collections.Generic;
 
 namespace Iteration1.Controllers.GameLevelController
 {
@@ -13,6 +14,8 @@ namespace Iteration1.Controllers.GameLevelController
         [Route("NoviceLevel")]
         public ActionResult NoviceLevel()
         {
+            db.ResetCardsPlayed();
+            db.SaveChanges();
             ViewBag.Words = db.GetCurrentDeck();
 
             return View();
@@ -25,7 +28,7 @@ namespace Iteration1.Controllers.GameLevelController
             db.UpdateDeck(id);
             ViewBag.Words = db.GetCurrentDeck();
             ViewBag.Played = db.GetCardsPlayed();
-            ViewBag.TrickUrls = db.GetTrickCards();
+            ViewBag.TrickUrls = db.GetTrickCards();;
             ViewBag.TrickIndexes = db.GetTrickIndexes();
 
             return View();

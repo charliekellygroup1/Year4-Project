@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Iteration1.Models.Game.Card>
+
 @{
     ViewBag.Title = "NoviceLevel";
 }
@@ -388,7 +389,7 @@
     <div class="col-sm-6">
         <div class="text-center">
             <div class="btn-group">
-                <button type="button" class="btn btn-success">Pause/Save</button>
+                <button type="button" class="btn btn-success">@Html.ActionLink("Reset Game","NoviceLevel")</button>
             </div>
         </div>
     </div>

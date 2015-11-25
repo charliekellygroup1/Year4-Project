@@ -14,10 +14,14 @@ namespace Iteration1.Models.Game
             this.TrickCard = cardUrl;
             this.TrickIndex = trickIndex;
         }
+        public Trick()
+        {
 
-        public string TrickCard { get; private set; }
-        public int TrickIndex { get; private set; }
-        public int ID { get; private set; }
+        }
+
+        public string TrickCard { get;  set; }
+        public int TrickIndex { get;  set; }
+        public int ID { get;  set; }
 
 
     }

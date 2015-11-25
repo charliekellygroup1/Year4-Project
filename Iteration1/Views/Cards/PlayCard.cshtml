@@ -1,0 +1,992 @@
+﻿@model Iteration1.Models.Game.Card
+
+@{
+    ViewBag.Title = "PlayCard";
+}
+<style type="text/css">
+    .col-sm-3 {
+        background-color: green;
+        height: 150px;
+    }
+
+    .col-sm-6 {
+        background-color: green;
+        height: 150px;
+    }
+
+    #playerDisplay {
+        position: absolute;
+    }
+
+    #player1_card1 {
+        position: absolute;
+        left: 170px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #player1_card2 {
+        position: absolute;
+        left: 185px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #player1_card3 {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+        z-index: 3;
+    }
+
+    #player1_card4 {
+        position: absolute;
+        left: 215px;
+        top: 0px;
+        z-index: 4;
+    }
+
+    #player1_card5 {
+        position: absolute;
+        left: 230px;
+        top: 0px;
+        z-index: 5;
+    }
+
+    #player1_card6 {
+        position: absolute;
+        left: 245px;
+        top: 0px;
+        z-index: 6;
+    }
+
+    #player1_card7 {
+        position: absolute;
+        left: 260px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    #player1_card8 {
+        position: absolute;
+        left: 275px;
+        top: 0px;
+        z-index: 8;
+    }
+
+    #player1_card9 {
+        position: absolute;
+        left: 290px;
+        top: 0px;
+        z-index: 9;
+    }
+
+    #player1_card10 {
+        position: absolute;
+        left: 305px;
+        top: 0px;
+        z-index: 10;
+    }
+
+    #player1_card11 {
+        position: absolute;
+        left: 320px;
+        top: 0px;
+        z-index: 11;
+    }
+
+    #player1_card12 {
+        position: absolute;
+        left: 335px;
+        top: 0px;
+        z-index: 12;
+    }
+
+    #player1_card13 {
+        position: absolute;
+        left: 350px;
+        top: 0px;
+        z-index: 13;
+    }
+
+    #player2_card1 {
+        position: absolute;
+        left: 170px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #player2_card2 {
+        position: absolute;
+        left: 185px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #player2_card3 {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+        z-index: 3;
+    }
+
+    #player2_card4 {
+        position: absolute;
+        left: 215px;
+        top: 0px;
+        z-index: 4;
+    }
+
+    #player2_card5 {
+        position: absolute;
+        left: 230px;
+        top: 0px;
+        z-index: 5;
+    }
+
+    #player2_card6 {
+        position: absolute;
+        left: 245px;
+        top: 0px;
+        z-index: 6;
+    }
+
+    #player2_card7 {
+        position: absolute;
+        left: 260px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    #player2_card8 {
+        position: absolute;
+        left: 275px;
+        top: 0px;
+        z-index: 8;
+    }
+
+    #player2_card9 {
+        position: absolute;
+        left: 290px;
+        top: 0px;
+        z-index: 9;
+    }
+
+    #player2_card10 {
+        position: absolute;
+        left: 305px;
+        top: 0px;
+        z-index: 10;
+    }
+
+    #player2_card11 {
+        position: absolute;
+        left: 320px;
+        top: 0px;
+        z-index: 11;
+    }
+
+    #player2_card12 {
+        position: absolute;
+        left: 335px;
+        top: 0px;
+        z-index: 12;
+    }
+
+    #player2_card13 {
+        position: absolute;
+        left: 350px;
+        top: 0px;
+        z-index: 13;
+    }
+
+    #player3_card1 {
+        position: absolute;
+        left: 170px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #player3_card2 {
+        position: absolute;
+        left: 185px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #player3_card3 {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+        z-index: 3;
+    }
+
+    #player3_card4 {
+        position: absolute;
+        left: 215px;
+        top: 0px;
+        z-index: 4;
+    }
+
+    #player3_card5 {
+        position: absolute;
+        left: 230px;
+        top: 0px;
+        z-index: 5;
+    }
+
+    #player3_card6 {
+        position: absolute;
+        left: 245px;
+        top: 0px;
+        z-index: 6;
+    }
+
+    #player3_card7 {
+        position: absolute;
+        left: 260px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    #player3_card8 {
+        position: absolute;
+        left: 275px;
+        top: 0px;
+        z-index: 8;
+    }
+
+    #player3_card9 {
+        position: absolute;
+        left: 290px;
+        top: 0px;
+        z-index: 9;
+    }
+
+    #player3_card10 {
+        position: absolute;
+        left: 305px;
+        top: 0px;
+        z-index: 10;
+    }
+
+    #player3_card11 {
+        position: absolute;
+        left: 320px;
+        top: 0px;
+        z-index: 11;
+    }
+
+    #player3_card12 {
+        position: absolute;
+        left: 335px;
+        top: 0px;
+        z-index: 12;
+    }
+
+    #player3_card13 {
+        position: absolute;
+        left: 350px;
+        top: 0px;
+        z-index: 13;
+    }
+
+    #player4_card1 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #player4_card2 {
+        position: absolute;
+        left: 15px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #player4_card3 {
+        position: absolute;
+        left: 30px;
+        top: 0px;
+        z-index: 3;
+    }
+
+    #player4_card4 {
+        position: absolute;
+        left: 45px;
+        top: 0px;
+        z-index: 4;
+    }
+
+    #player4_card5 {
+        position: absolute;
+        left: 60px;
+        top: 0px;
+        z-index: 5;
+    }
+
+    #player4_card6 {
+        position: absolute;
+        left: 75px;
+        top: 0px;
+        z-index: 6;
+    }
+
+    #player4_card7 {
+        position: absolute;
+        left: 90px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    #player4_card8 {
+        position: absolute;
+        left: 105px;
+        top: 0px;
+        z-index: 8;
+    }
+
+    #player4_card9 {
+        position: absolute;
+        left: 120px;
+        top: 0px;
+        z-index: 9;
+    }
+
+    #player4_card10 {
+        position: absolute;
+        left: 135px;
+        top: 0px;
+        z-index: 10;
+    }
+
+    #player4_card11 {
+        position: absolute;
+        left: 150px;
+        top: 0px;
+        z-index: 11;
+    }
+
+    #player4_card12 {
+        position: absolute;
+        left: 165px;
+        top: 0px;
+        z-index: 12;
+    }
+
+    #player4_card13 {
+        position: absolute;
+        left: 180px;
+        top: 0px;
+        z-index: 13;
+    }
+
+    #trickCard1 {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+    }
+
+    #trickCard2 {
+        position: absolute;
+        left: 285px;
+        top: 0px;
+    }
+
+    #trickCard3 {
+        position: absolute;
+        left: 370px;
+        top: 0px;
+    }
+
+    #trickCard4 {
+        position: absolute;
+        left: 455px;
+        top: 0px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-3"><h2>Novice Level Game</h2></div>
+    <div class="col-sm-6">
+        <div class="text-center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success">@Html.ActionLink("Reset Game","NoviceLevel")</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3"><h2>YourTeam's Score  <p class="text-center"><span class="label label-default">00</span></p></h2> </div>
+</div>
+<div class="row">
+    <div class="text-center">
+        <div class="col-sm-3"> </div>
+        <div class="col-sm-6">
+            <div id="playerDisplay">
+                @if (@ViewBag.Played[13] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card1" src="@Url.Content(@ViewBag.Words[13])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[14] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card2" src="@Url.Content(@ViewBag.Words[14])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[15] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card3" src="@Url.Content(@ViewBag.Words[15])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[16] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card4" src="@Url.Content(@ViewBag.Words[16])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[17] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card5" src="@Url.Content(@ViewBag.Words[17])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[18] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card6" src="@Url.Content(@ViewBag.Words[18])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[19] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card7" src="@Url.Content(@ViewBag.Words[19])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[20] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card8" src="@Url.Content(@ViewBag.Words[20])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[21] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card9" src="@Url.Content(@ViewBag.Words[21])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[22] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card10" src="@Url.Content(@ViewBag.Words[22])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[23] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card11" src="@Url.Content(@ViewBag.Words[23])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[24] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card12" src="@Url.Content(@ViewBag.Words[24])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[25] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player2_card13" src="@Url.Content(@ViewBag.Words[25])" alt="Card Face Down" />
+                }
+            </div>
+        </div>
+        <div class="col-sm-3"> </div>
+    </div>
+</div>
+<div class="row">
+    <div class="text-center">
+        <div class="col-sm-3">
+            <div id="playerDisplay">
+                @if (@ViewBag.Played[26] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card1" src="@Url.Content(@ViewBag.Words[26])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[27] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card2" src="@Url.Content(@ViewBag.Words[27])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[28] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card3" src="@Url.Content(@ViewBag.Words[28])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[29] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card4" src="@Url.Content(@ViewBag.Words[29])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[30] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card5" src="@Url.Content(@ViewBag.Words[30])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[31] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card6" src="@Url.Content(@ViewBag.Words[31])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[32] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card7" src="@Url.Content(@ViewBag.Words[32])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[33] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card8" src="@Url.Content(@ViewBag.Words[33])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[34] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card9" src="@Url.Content(@ViewBag.Words[34])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[35] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card10" src="@Url.Content(@ViewBag.Words[35])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[36] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card11" src="@Url.Content(@ViewBag.Words[36])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[37] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card12" src="@Url.Content(@ViewBag.Words[37])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[38] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player3_card13" src="@Url.Content(@ViewBag.Words[38])" alt="Card Face Down" />
+                }
+            </div>
+        </div>
+        <div class="col-sm-6">
+            @if (@ViewBag.TrickIndexes[0] != 0)
+            {
+                if (@ViewBag.TrickIndexes[0] >= 1 && @ViewBag.TrickIndexes[0] <= 12)
+                {
+                    <img id="trickCard1" src="@Url.Content(@ViewBag.TrickUrls[0])" alt="trick Card 1" />
+                }
+                else if (@ViewBag.TrickIndexes[0] >= 13 && @ViewBag.TrickIndexes[0] <= 25)
+                {
+                    <img id="trickCard2" src="@Url.Content(@ViewBag.TrickUrls[0])" alt="trick Card 2" />
+                }
+                else if (@ViewBag.TrickIndexes[0] >= 26 && @ViewBag.TrickIndexes[0] <= 38)
+                {
+                    <img id="trickCard3" src="@Url.Content(@ViewBag.TrickUrls[0])" alt="trick Card 3" />
+                }
+                else if (@ViewBag.TrickIndexes[0] >= 39 && @ViewBag.TrickIndexes[0] <= 51)
+                {
+                    <img id="trickCard4" src="@Url.Content(@ViewBag.TrickUrls[0])" alt="trick Card 4" />
+                }
+                else
+                {
+
+                }
+            }
+            @if (@ViewBag.TrickIndexes[1] != 0)
+            {
+                if (@ViewBag.TrickIndexes[1] >= 1 && @ViewBag.TrickIndexes[1] <= 12)
+                {
+                    <img id="trickCard1" src="@Url.Content(@ViewBag.TrickUrls[1])" alt="trick Card 1" />
+                }
+                else if (@ViewBag.TrickIndexes[1] >= 13 && @ViewBag.TrickIndexes[1] <= 25)
+                {
+                    <img id="trickCard2" src="@Url.Content(@ViewBag.TrickUrls[1])" alt="trick Card 2" />
+                }
+                else if (@ViewBag.TrickIndexes[1] >= 26 && @ViewBag.TrickIndexes[1] <= 38)
+                {
+                    <img id="trickCard3" src="@Url.Content(@ViewBag.TrickUrls[1])" alt="trick Card 3" />
+                }
+                else if (@ViewBag.TrickIndexes[1] >= 39 && @ViewBag.TrickIndexes[1] <= 51)
+                {
+                    <img id="trickCard4" src="@Url.Content(@ViewBag.TrickUrls[1])" alt="trick Card 4" />
+                }
+                else
+                {
+
+                }
+            }
+            @if (@ViewBag.TrickIndexes[2] != 0)
+            {
+                if (@ViewBag.TrickIndexes[2] >= 1 && @ViewBag.TrickIndexes[2] <= 12)
+                {
+                    <img id="trickCard1" src="@Url.Content(@ViewBag.TrickUrls[2])" alt="trick Card 1" />
+                }
+                else if (@ViewBag.TrickIndexes[2] >= 13 && @ViewBag.TrickIndexes[2] <= 25)
+                {
+                    <img id="trickCard2" src="@Url.Content(@ViewBag.TrickUrls[2])" alt="trick Card 2" />
+                }
+                else if (@ViewBag.TrickIndexes[2] >= 26 && @ViewBag.TrickIndexes[2] <= 38)
+                {
+                    <img id="trickCard3" src="@Url.Content(@ViewBag.TrickUrls[2])" alt="trick Card 3" />
+                }
+                else if (@ViewBag.TrickIndexes[2] >= 39 && @ViewBag.TrickIndexes[2] <= 51)
+                {
+                    <img id="trickCard4" src="@Url.Content(@ViewBag.TrickUrls[2])" alt="trick Card 4" />
+                }
+                else
+                {
+
+                }
+            }
+            @if (@ViewBag.TrickIndexes[3] != 0)
+            {
+                if (@ViewBag.TrickIndexes[3] >= 1 && @ViewBag.TrickIndexes[3] <= 12)
+                {
+                    <img id="trickCard1" src="@Url.Content(@ViewBag.TrickUrls[3])" alt="trick Card 1" />
+                }
+                else if (@ViewBag.TrickIndexes[3] >= 13 && @ViewBag.TrickIndexes[3] <= 25)
+                {
+                    <img id="trickCard2" src="@Url.Content(@ViewBag.TrickUrls[3])" alt="trick Card 2" />
+                }
+                else if (@ViewBag.TrickIndexes[3] >= 26 && @ViewBag.TrickIndexes[3] <= 38)
+                {
+                    <img id="trickCard3" src="@Url.Content(@ViewBag.TrickUrls[3])" alt="trick Card 3" />
+                }
+                else if (@ViewBag.TrickIndexes[3] >= 39 && @ViewBag.TrickIndexes[3] <= 51)
+                {
+                    <img id="trickCard4" src="@Url.Content(@ViewBag.TrickUrls[3])" alt="trick Card 4" />
+                }
+                else
+                {
+
+                }
+            }
+
+        </div>
+        <div class="col-sm-3">
+            <div id="playerDisplay">
+                @if (@ViewBag.Played[39] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card1" src="@Url.Content(@ViewBag.Words[39])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[40] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card2" src="@Url.Content(@ViewBag.Words[40])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[41] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card3" src="@Url.Content(@ViewBag.Words[41])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[42] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card4" src="@Url.Content(@ViewBag.Words[42])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[43] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card5" src="@Url.Content(@ViewBag.Words[43])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[44] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card6" src="@Url.Content(@ViewBag.Words[44])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[45] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card7" src="@Url.Content(@ViewBag.Words[45])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[46] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card8" src="@Url.Content(@ViewBag.Words[46])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[47] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card9" src="@Url.Content(@ViewBag.Words[47])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[48] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card10" src="@Url.Content(@ViewBag.Words[48])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[49] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card11" src="@Url.Content(@ViewBag.Words[49])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[50] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card12" src="@Url.Content(@ViewBag.Words[50])" alt="Card Face Down" />
+                }
+                @if (@ViewBag.Played[51] == true)
+                {
+
+                }
+                else
+                {
+                    <img id="player4_card13" src="@Url.Content(@ViewBag.Words[51])" alt="Card Face Down" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="text-center">
+        <div class="col-sm-3"> </div>
+        <div class="col-sm-6">
+            <div id="playerDisplay">
+                @if (@ViewBag.Played[0] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/1" method="post">
+                        <input type="image" id="player1_card1" src="@Url.Content(@ViewBag.Words[0])" alt="Card 1" />
+                    </form>
+                }
+                @if (@ViewBag.Played[1] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/2" method="post">
+                        <input type="image" id="player1_card2" src="@Url.Content(@ViewBag.Words[1])" alt="Card 2" />
+                    </form>
+                }
+                @if (@ViewBag.Played[2] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/3" method="post">
+                        <input type="image" id="player1_card3" src="@Url.Content(@ViewBag.Words[2])" alt="Card 3" />
+                    </form>
+                }
+                @if (@ViewBag.Played[3] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/4" method="post">
+                        <input type="image" id="player1_card4" src="@Url.Content(@ViewBag.Words[3])" alt="Card 4" />
+                    </form>
+                }
+                @if (@ViewBag.Played[4] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/5" method="post">
+                        <input type="image" id="player1_card5" src="@Url.Content(@ViewBag.Words[4])" alt="Card 5" />
+                    </form>
+                }
+                @if (@ViewBag.Played[5] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/6" method="post">
+                        <input type="image" id="player1_card6" src="@Url.Content(@ViewBag.Words[5])" alt="Card 6" />
+                    </form>
+                }
+                @if (@ViewBag.Played[6] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/7" method="post">
+                        <input type="image" id="player1_card7" src="@Url.Content(@ViewBag.Words[6])" alt="Card 7" />
+                    </form>
+                }
+                @if (@ViewBag.Played[7] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/8" method="post">
+                        <input type="image" id="player1_card8" src="@Url.Content(@ViewBag.Words[7])" alt="Card 8" />
+                    </form>
+                }
+                @if (@ViewBag.Played[8] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/9" method="post">
+                        <input type="image" id="player1_card9" src="@Url.Content(@ViewBag.Words[8])" alt="Card 9" />
+                    </form>
+                }
+                @if (@ViewBag.Played[9] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/10" method="post">
+                        <input type="image" id="player1_card10" src="@Url.Content(@ViewBag.Words[9])" alt="Card 10" />
+                    </form>
+                }
+                @if (@ViewBag.Played[10] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/11" method="post">
+                        <input type="image" id="player1_card11" src="@Url.Content(@ViewBag.Words[10])" alt="Card 11" />
+                    </form>
+                }
+                @if (@ViewBag.Played[11] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/12" method="post">
+                        <input type="image" id="player1_card12" src="@Url.Content(@ViewBag.Words[11])" alt="Card 12" />
+                    </form>
+                }
+                @if (@ViewBag.Played[12] == true)
+                {
+
+                }
+                else
+                {
+                    <form action="~/Cards/PlayCard/13" method="post">
+                        <input type="image" id="player1_card13" src="@Url.Content(@ViewBag.Words[12])" alt="Card 13" />
+                    </form>
+                }
+            </div>
+        </div>
+        <div class="col-sm-3"> </div>
+    </div>
+</div>
+
+
+
+
