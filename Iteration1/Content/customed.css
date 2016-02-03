@@ -1,0 +1,393 @@
+﻿@charset "UTF-8";
+
+    #playerDisplay {
+        position: absolute;
+    }
+
+    #player1_card1 {
+        position: absolute;
+        left: 170px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #player1_card2 {
+        position: absolute;
+        left: 185px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #player1_card3 {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+        z-index: 3;
+    }
+
+    #player1_card4 {
+        position: absolute;
+        left: 215px;
+        top: 0px;
+        z-index: 4;
+    }
+
+    #player1_card5 {
+        position: absolute;
+        left: 230px;
+        top: 0px;
+        z-index: 5;
+    }
+
+    #player1_card6 {
+        position: absolute;
+        left: 245px;
+        top: 0px;
+        z-index: 6;
+    }
+
+    #player1_card7 {
+        position: absolute;
+        left: 260px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    #player1_card8 {
+        position: absolute;
+        left: 275px;
+        top: 0px;
+        z-index: 8;
+    }
+
+    #player1_card9 {
+        position: absolute;
+        left: 290px;
+        top: 0px;
+        z-index: 9;
+    }
+
+    #player1_card10 {
+        position: absolute;
+        left: 305px;
+        top: 0px;
+        z-index: 10;
+    }
+
+    #player1_card11 {
+        position: absolute;
+        left: 320px;
+        top: 0px;
+        z-index: 11;
+    }
+
+    #player1_card12 {
+        position: absolute;
+        left: 335px;
+        top: 0px;
+        z-index: 12;
+    }
+
+    #player1_card13 {
+        position: absolute;
+        left: 350px;
+        top: 0px;
+        z-index: 13;
+    }
+
+        #player2_card1 {
+        position: absolute;
+        left: 170px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #player2_card2 {
+        position: absolute;
+        left: 185px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #player2_card3 {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+        z-index: 3;
+    }
+
+    #player2_card4 {
+        position: absolute;
+        left: 215px;
+        top: 0px;
+        z-index: 4;
+    }
+
+    #player2_card5 {
+        position: absolute;
+        left: 230px;
+        top: 0px;
+        z-index: 5;
+    }
+
+    #player2_card6 {
+        position: absolute;
+        left: 245px;
+        top: 0px;
+        z-index: 6;
+    }
+
+    #player2_card7 {
+        position: absolute;
+        left: 260px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    #player2_card8 {
+        position: absolute;
+        left: 275px;
+        top: 0px;
+        z-index: 8;
+    }
+
+    #player2_card9 {
+        position: absolute;
+        left: 290px;
+        top: 0px;
+        z-index: 9;
+    }
+
+    #player2_card10 {
+        position: absolute;
+        left: 305px;
+        top: 0px;
+        z-index: 10;
+    }
+
+    #player2_card11 {
+        position: absolute;
+        left: 320px;
+        top: 0px;
+        z-index: 11;
+    }
+
+    #player2_card12 {
+        position: absolute;
+        left: 335px;
+        top: 0px;
+        z-index: 12;
+    }
+
+    #player2_card13 {
+        position: absolute;
+        left: 350px;
+        top: 0px;
+        z-index: 13;
+    }
+
+    #player3_card1 {
+        position: absolute;
+        left: 170px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #player3_card2 {
+        position: absolute;
+        left: 185px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #player3_card3 {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+        z-index: 3;
+    }
+
+    #player3_card4 {
+        position: absolute;
+        left: 215px;
+        top: 0px;
+        z-index: 4;
+    }
+
+    #player3_card5 {
+        position: absolute;
+        left: 230px;
+        top: 0px;
+        z-index: 5;
+    }
+
+    #player3_card6 {
+        position: absolute;
+        left: 245px;
+        top: 0px;
+        z-index: 6;
+    }
+
+    #player3_card7 {
+        position: absolute;
+        left: 260px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    #player3_card8 {
+        position: absolute;
+        left: 275px;
+        top: 0px;
+        z-index: 8;
+    }
+
+    #player3_card9 {
+        position: absolute;
+        left: 290px;
+        top: 0px;
+        z-index: 9;
+    }
+
+    #player3_card10 {
+        position: absolute;
+        left: 305px;
+        top: 0px;
+        z-index: 10;
+    }
+
+    #player3_card11 {
+        position: absolute;
+        left: 320px;
+        top: 0px;
+        z-index: 11;
+    }
+
+    #player3_card12 {
+        position: absolute;
+        left: 335px;
+        top: 0px;
+        z-index: 12;
+    }
+
+    #player3_card13 {
+        position: absolute;
+        left: 350px;
+        top: 0px;
+        z-index: 13;
+    }
+
+    #player4_card1 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #player4_card2 {
+        position: absolute;
+        left: 15px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #player4_card3 {
+        position: absolute;
+        left: 30px;
+        top: 0px;
+        z-index: 3;
+    }
+
+    #player4_card4 {
+        position: absolute;
+        left: 45px;
+        top: 0px;
+        z-index: 4;
+    }
+
+    #player4_card5 {
+        position: absolute;
+        left: 60px;
+        top: 0px;
+        z-index: 5;
+    }
+
+    #player4_card6 {
+        position: absolute;
+        left: 75px;
+        top: 0px;
+        z-index: 6;
+    }
+
+    #player4_card7 {
+        position: absolute;
+        left: 90px;
+        top: 0px;
+        z-index: 7;
+    }
+
+    #player4_card8 {
+        position: absolute;
+        left: 105px;
+        top: 0px;
+        z-index: 8;
+    }
+
+    #player4_card9 {
+        position: absolute;
+        left: 120px;
+        top: 0px;
+        z-index: 9;
+    }
+
+    #player4_card10 {
+        position: absolute;
+        left: 135px;
+        top: 0px;
+        z-index: 10;
+    }
+
+    #player4_card11 {
+        position: absolute;
+        left: 150px;
+        top: 0px;
+        z-index: 11;
+    }
+
+    #player4_card12 {
+        position: absolute;
+        left: 165px;
+        top: 0px;
+        z-index: 12;
+    }
+
+    #player4_card13 {
+        position: absolute;
+        left: 180px;
+        top: 0px;
+        z-index: 13;
+    }
+    
+    #trickCard1 {
+        position: absolute;
+        left: 200px;
+        top: 0px;
+    }
+
+    #trickCard2 {
+        position: absolute;
+        left: 285px;
+        top: 0px;
+    }
+
+    #trickCard3 {
+        position: absolute;
+        left: 370px;
+        top: 0px;
+    }
+
+    #trickCard4 {
+        position: absolute;
+        left: 455px;
+        top: 0px;
+    }

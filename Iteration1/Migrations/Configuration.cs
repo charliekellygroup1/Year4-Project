@@ -30,13 +30,13 @@ namespace Iteration1.Migrations
             //    );
             //
            /* List<Trick> seedTricks = new List<Trick>();
-            Trick trick = new Trick("~Content/images/blankCard.jpg", 0);
+            Trick trick = new Trick("~Content/images/blankCard.jpg", 0, CardValue.None, Suit.Blank);
             seedTricks.Add(trick);
             seedTricks.Add(trick);
             seedTricks.Add(trick);
             seedTricks.Add(trick);
             seedTricks.ToList().ForEach(n => context.Tricks.Add(n));
-            context.SaveChanges();*/
+            context.SaveChanges();
             /*try
              {
                  Deck d = new Deck();

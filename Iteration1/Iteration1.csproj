@@ -188,10 +188,15 @@
     <Compile Include="Migrations\201511162221061_Initial.Designer.cs">
       <DependentUpon>201511162221061_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602032233182_AddGame.cs" />
+    <Compile Include="Migrations\201602032233182_AddGame.Designer.cs">
+      <DependentUpon>201602032233182_AddGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Game\Card.cs" />
     <Compile Include="Models\Game\Deck.cs" />
+    <Compile Include="Models\Game\Game.cs" />
     <Compile Include="Models\Game\Player.cs" />
     <Compile Include="Models\Game\Trick.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -204,6 +209,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\customed.css" />
     <Content Include="Content\images\AF1_EEK.WAV" />
     <Content Include="Content\images\bitmap1.bmp" />
     <Content Include="Content\images\blankCard.jpg" />
@@ -362,6 +368,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201511162221061_Initial.resx">
       <DependentUpon>201511162221061_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602032233182_AddGame.resx">
+      <DependentUpon>201602032233182_AddGame.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

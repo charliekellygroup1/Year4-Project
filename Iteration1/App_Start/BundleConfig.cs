@@ -26,6 +26,7 @@ namespace Iteration1
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
+                      "~/Content/customed.css",
                       "~/Content/zocial.css"));
         }
     }

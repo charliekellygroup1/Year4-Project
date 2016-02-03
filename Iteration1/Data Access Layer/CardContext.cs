@@ -23,7 +23,8 @@ namespace Iteration1.Data_Access_Layer
         public DbSet<Card> Cards { get; set; }
         public DbSet<Trick> Tricks { get; set; }
         public DbSet<Player> Players { get; set; }
-        public void UpdateDeck(int id)
+        public DbSet<Game> Game { get; set; }
+        public void UpdateDeck(int id, int position)
         {
             CardContext db = new CardContext();
             string addTrick = "";
@@ -34,10 +35,14 @@ namespace Iteration1.Data_Access_Layer
             db.Entry(playedCard).State = EntityState.Modified;
             db.SaveChanges();
 
-            int next = 1;
+            int next = position;
+            CardValue cardValue = playedCard.CardValue;
+            Suit suit = playedCard.CardSuit;
             Trick trick = db.Tricks.Find(next);
-            trick.TrickCard = addTrick;
+            trick.TrickCardUrl = addTrick;
             trick.TrickIndex = id;
+            trick.CardValue = cardValue;
+            trick.CardSuit = suit;
             db.Entry(trick).State = EntityState.Modified;
             db.SaveChanges();
         }
@@ -46,7 +51,7 @@ namespace Iteration1.Data_Access_Layer
             CardContext db = new CardContext();
             var Cards = from q in db.Tricks
                         orderby q.ID
-                        select q.TrickCard;
+                        select q.TrickCardUrl;
 
             List<string> imageUrls = Cards.ToList();
             return imageUrls;
@@ -61,6 +66,14 @@ namespace Iteration1.Data_Access_Layer
             List<int> trickIndexes = Tricks.ToList();
             return trickIndexes;
         }
+        public Card GetFirstTrick(int id)
+        {
+            CardContext db = new CardContext();
+            Card playedCard = db.Cards.Find(id);
+
+            return playedCard;
+
+        }
         public List<string> GetCurrentDeck()
         {
             CardContext db = new CardContext();
@@ -70,6 +83,25 @@ namespace Iteration1.Data_Access_Layer
 
             List<string> imageUrls = Cards.ToList();
             return imageUrls;
+        }
+        public List<Card> GetDeck()
+        {
+            CardContext db = new CardContext();
+            var Cards = from q in db.Cards
+                        select q;
+
+            List<Card> cards = Cards.ToList();
+            return cards;
+        }
+        public List<Trick> GetTricks()
+        {
+            CardContext db = new CardContext();
+            var Cards = from q in db.Tricks
+                        orderby q.ID
+                        select q;
+
+            List<Trick> cards = Cards.ToList();
+            return cards;
         }
         public List<bool> GetCardsPlayed()
         {
@@ -93,9 +125,22 @@ namespace Iteration1.Data_Access_Layer
             foreach (var trick in db.Tricks.Where(x => x.TrickIndex > 0).ToList())
             {
                 trick.TrickIndex = 0;
-                trick.TrickCard = "~Content / images / blankCard.jpg";
+                trick.TrickCardUrl = "~Content / images / blankCard.jpg";
+                trick.CardSuit = Suit.Blank;
+                trick.CardValue = CardValue.None;
             }
             db.SaveChanges();
+        }
+        public int GetCardId(int playerRef)
+        {
+            CardContext db = new CardContext();
+            int foundId = 0;
+            foreach (var cardId in db.Cards.Where(x => x.PlayerRef == playerRef))
+            {
+                 foundId = cardId.ID;
+            }
+            db.SaveChanges();
+            return foundId;
         }
     }
 }
