@@ -9,7 +9,7 @@ namespace Iteration1.Models.Game
 {
     public enum Suit
     {
-        Clubs, Diamonds, Spades, Hearts, Blank
+        Hearts, Diamonds, Spades, Clubs, Blank
     }
     public enum CardValue
     {

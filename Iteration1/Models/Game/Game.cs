@@ -10,8 +10,8 @@ namespace Iteration1.Models.Game
     {
         public static int Teamscore = 0;
         List<Trick> tricks;
-        private int score;
-        CardContext db; 
+        CardContext db;
+
         public Game(bool half, int score)
         {
             this.IsFirstHalf = half;
@@ -27,30 +27,22 @@ namespace Iteration1.Models.Game
             tricks = new List<Trick>();
             db = new CardContext();
         }
-        public bool IsFirstHalf { get; set; }
         public int ID { get; private set; }
-        public int Score
-        {
-            get
-            {
-                return score;
-            }
-            private set
-            {
-                this.score += value;
-            }
-        }
+        public bool IsFirstHalf { get; private set; }
+        public int Score { get; private set; }
+
         public int AddScore()
         {
             tricks = db.GetTricks();
             Card a = db.GetFirstTrick(tricks[0].ID);
-            int trickScore = 0, index = 0;
+            int trickScore = 0, index = 0, winningPlayer = 0;
             var winner = tricks.Max(card => card.CardValue);
             for (int i = 0; i < tricks.Count; i++)
             {
                 if (tricks[i].CardValue == winner)
                 {
                     index = tricks[i].TrickIndex;
+                    winningPlayer = GetPlayerPosition(index);
                 }
             }
 
@@ -60,7 +52,7 @@ namespace Iteration1.Models.Game
                 {
                     trickScore += ((int)tricks[i].CardValue * 2);
                 }
-                else if (tricks[i].CardSuit != a.CardSuit && tricks[i].CardValue == CardValue.Nine || tricks[i].CardValue == CardValue.Five)
+                else if (tricks[i].CardSuit != a.CardSuit && tricks[i].CardValue == CardValue.Nine || tricks[i].CardSuit != a.CardSuit && tricks[i].CardValue == CardValue.Five)
                 {
                     trickScore += (int)tricks[i].CardValue;
                 }
@@ -85,18 +77,22 @@ namespace Iteration1.Models.Game
 
                 }
             }
-            if (index == 1 || index == 3)
+            if (winningPlayer == 1 || winningPlayer == 3)
             {
                 Teamscore += trickScore;
             }
             Score += trickScore;
+            int gameId = db.GetGameID();
+            Hand hand = new Hand(gameId, tricks[0].TrickIndex, tricks[1].TrickIndex, tricks[2].TrickIndex, tricks[3].TrickIndex, trickScore, winningPlayer);
+            db.Hand.Add(hand);
+            db.SaveChanges();
             return trickScore;
         }
 
         public Card GetFirstCard(List<Card> startDeck, int indexOfPlayer)
         {
             Card firstCard = new Card();
-            int caseSwitch = GetFirstPlayerPosition(indexOfPlayer);
+            int caseSwitch = GetPlayerPosition(indexOfPlayer);
 
             switch (caseSwitch)
             {
@@ -135,12 +131,13 @@ namespace Iteration1.Models.Game
                 default:
                     break;
             }
-            Trick trick1 = new Trick(firstCard.ImagePath, caseSwitch, firstCard.CardValue, firstCard.CardSuit);
-            db.Tricks.Add(trick1);
+            //Trick trick1 = new Trick(firstCard.ImagePath, caseSwitch, firstCard.CardValue, firstCard.CardSuit);
+            //db.Tricks.Add(trick1);
+            //db.SaveChanges();
             return firstCard;
         }
 
-        public int GetFirstPlayerPosition(int indexOfPlayer)
+        public int GetPlayerPosition(int indexOfPlayer)
         {
             if (indexOfPlayer >= 0 && indexOfPlayer <= 12)
             {
@@ -164,7 +161,7 @@ namespace Iteration1.Models.Game
         {
 
             //find out which player is next
-            int caseSwitch = GetFirstPlayerPosition(indexOfDeuce);
+            int caseSwitch = GetPlayerPosition(indexOfDeuce);
 
             if (caseSwitch == 1)
                 caseSwitch = 4;
@@ -211,9 +208,9 @@ namespace Iteration1.Models.Game
                 default:
                     break;
             }
-            Trick trick4 = new Trick(card.ImagePath, caseSwitch, card.CardValue, card.CardSuit);
-            db.Tricks.Add(trick4);
-            Score = AddScore();
+            //Trick trick4 = new Trick(card.ImagePath, caseSwitch, card.CardValue, card.CardSuit);
+            //db.Tricks.Add(trick4);
+            //db.SaveChanges();
             return card;
         }
 
@@ -301,7 +298,7 @@ namespace Iteration1.Models.Game
         public Card GetThirdCard(List<Card> startDeck, Card a, int indexOfDeuce)
         {
             //find out which player is next
-            int caseSwitch = GetFirstPlayerPosition(indexOfDeuce);
+            int caseSwitch = GetPlayerPosition(indexOfDeuce);
 
             if (caseSwitch == 1)
                 caseSwitch = 3;
@@ -348,8 +345,9 @@ namespace Iteration1.Models.Game
                 default:
                     break;
             }
-            Trick trick3 = new Trick(card.ImagePath, caseSwitch, card.CardValue, card.CardSuit);
-            db.Tricks.Add(trick3);
+            //Trick trick3 = new Trick(card.ImagePath, caseSwitch, card.CardValue, card.CardSuit);
+            //db.Tricks.Add(trick3);
+            //db.SaveChanges();
             return card;
         }
         //private helper method to decide what card player playing third plays in opening hand
@@ -529,7 +527,7 @@ namespace Iteration1.Models.Game
         public Card GetSecondCard(List<Card> startDeck, Card a, int indexOfDeuce)
         {
             //find out which player is next
-            int caseSwitch = GetFirstPlayerPosition(indexOfDeuce);
+            int caseSwitch = GetPlayerPosition(indexOfDeuce);
 
             if (caseSwitch == 1)
                 caseSwitch = 2;
@@ -576,8 +574,9 @@ namespace Iteration1.Models.Game
                 default:
                     break;
             }
-            Trick trick2 = new Trick(card.ImagePath, caseSwitch, card.CardValue, card.CardSuit);
-            db.Tricks.Add(trick2);
+            //Trick trick2 = new Trick(card.ImagePath, caseSwitch, card.CardValue, card.CardSuit);
+            //db.Tricks.Add(trick2);
+            //db.SaveChanges();
             return card;
         }
 

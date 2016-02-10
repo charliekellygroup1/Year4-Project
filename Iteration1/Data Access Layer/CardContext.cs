@@ -24,6 +24,7 @@ namespace Iteration1.Data_Access_Layer
         public DbSet<Trick> Tricks { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Game> Game { get; set; }
+        public DbSet<Hand> Hand { get; set; }
         public void UpdateDeck(int id, int position)
         {
             CardContext db = new CardContext();
@@ -69,7 +70,8 @@ namespace Iteration1.Data_Access_Layer
         public Card GetFirstTrick(int id)
         {
             CardContext db = new CardContext();
-            Card playedCard = db.Cards.Find(id);
+            Trick firstTrick = db.Tricks.Find(id);
+            Card playedCard = db.Cards.Find(firstTrick.TrickIndex);
 
             return playedCard;
 
@@ -102,6 +104,24 @@ namespace Iteration1.Data_Access_Layer
 
             List<Trick> cards = Cards.ToList();
             return cards;
+        }
+        public void ResetTricks()
+        {
+            CardContext db = new CardContext();
+            var Cards = from q in db.Tricks
+                        orderby q.ID
+                        select q;
+
+            List<Trick> cards = Cards.ToList();
+            foreach(var t in cards)
+            {
+                t.TrickCardUrl = "~Content/images/blankCard.jpg";
+                t.TrickIndex = 0;
+                t.CardValue = CardValue.None;
+                t.CardSuit = Suit.Blank;
+                db.Entry(t).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
         public List<bool> GetCardsPlayed()
         {
@@ -141,6 +161,66 @@ namespace Iteration1.Data_Access_Layer
             }
             db.SaveChanges();
             return foundId;
+        }
+        public int GetGameID()
+        {
+            CardContext db = new CardContext();
+            int gameId = 0;
+            var lastGameID = db.Game.Max(g => g.ID);
+
+            gameId = lastGameID;
+
+            return gameId;
+        }
+        public int GetTrickWinner()
+        {
+            int winner = 0;
+            CardContext db = new CardContext();
+            var lastHandID = db.Hand.Max(h => h.ID);
+
+            var winnerIndex = (from x in db.Hand where x.ID == lastHandID select x.WinningPlayer).First();
+            winner = winnerIndex;
+
+            return winner;
+        }
+        public int GetTrickScore()
+        {
+            int score = 0;
+            CardContext db = new CardContext();
+            var lastHandID = db.Hand.Max(h => h.ID);
+
+            var winnerIndex = (from x in db.Hand where x.ID == lastHandID select x.TrickScore).First();
+            score = winnerIndex;
+
+            return score;
+        }
+        public List<string> GetLastTrick()
+        {
+            List<string> lastTrick = new List<string>();
+            int[] ids = new int[4];
+            CardContext db = new CardContext();
+            var lastHandID = db.Hand.Max(h => h.ID);
+
+            var card1 = (from x in db.Hand where x.ID == lastHandID select x.FirstCard).First();
+            ids[0] = card1;
+            var card2 = (from x in db.Hand where x.ID == lastHandID select x.SecondCard).First();
+            ids[1] = card2;
+            var card3 = (from x in db.Hand where x.ID == lastHandID select x.ThirdCard).First();
+            ids[2] = card3;
+            var card4 = (from x in db.Hand where x.ID == lastHandID select x.FourthCard).First();
+            ids[3] = card4;
+
+            var url1 = (from x in db.Cards where x.ID == ids[0] select x.ImagePath).First();
+            lastTrick.Add(url1);
+            var url2 = (from x in db.Cards where x.ID == ids[1] select x.ImagePath).First();
+            lastTrick.Add(url2);
+            var url3 = (from x in db.Cards where x.ID == ids[2] select x.ImagePath).First();
+            lastTrick.Add(url3);
+            var url4 = (from x in db.Cards where x.ID == ids[3] select x.ImagePath).First();
+            lastTrick.Add(url4);
+
+
+            return lastTrick;
         }
     }
 }

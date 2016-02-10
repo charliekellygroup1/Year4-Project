@@ -391,3 +391,60 @@
         left: 455px;
         top: 0px;
     }
+       .above4 {
+        position: absolute;
+        font-size: 18px;
+        bottom: 160px;
+        left: 70px;
+    }
+
+    .above2 {
+        position: absolute;
+        font-size: 18px;
+        bottom: 8px;
+        left: 255px;
+    }
+
+    .above3 {
+        position: absolute;
+        font-size: 18px;
+        bottom: 160px;
+        left: 270px;
+    }
+
+    .bottom {
+        position: absolute;
+        font-size: 18px;
+        bottom: 18px;
+        left: 270px;
+    }
+    .aboveTricks {
+        position: absolute;
+        font-size: 18px;
+        bottom: 160px;
+        left: 270px;
+    }
+    .belowP1 {
+         position: absolute;
+         font-size: 18px;
+         left: 230px;
+         bottom: 18px;
+    }
+    .belowP2 {
+         position: absolute;
+         font-size: 18px;
+         left: 315px;
+         bottom: 18px;
+    }
+    .belowP3 {
+         position: absolute;
+         font-size: 18px;
+         left: 400px;
+         bottom: 18px;
+    }
+    .belowP4 {
+         position: absolute;
+         font-size: 18px;
+         left: 485px;
+         bottom: 18px;
+    }

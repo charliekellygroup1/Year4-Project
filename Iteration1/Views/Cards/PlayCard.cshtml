@@ -14,33 +14,7 @@
         height: 150px;
     }
 
-    .above4 {
-        position: absolute;
-        font-size: 18px;
-        bottom: 160px;
-        left: 70px;
-    }
-
-    .above2 {
-        position: absolute;
-        font-size: 18px;
-        bottom: 8px;
-        left: 255px;
-    }
-
-    .above3 {
-        position: absolute;
-        font-size: 18px;
-        bottom: 160px;
-        left: 270px;
-    }
-
-    .bottom {
-        position: absolute;
-        font-size: 18px;
-        bottom: 18px;
-        left: 270px;
-    }
+ 
 </style>
 <div class="row">
     <div class="col-sm-3"><h2>Novice Level Game</h2></div>
@@ -165,7 +139,9 @@
         </div>
 
     </div>
-    <div class="col-sm-3"> </div>
+    <div class="col-sm-3">
+       
+    </div>
 </div>
 <div class="row">
     <div class="text-center">
@@ -335,7 +311,7 @@
                 }
                 else if (@ViewBag.TrickIndexes[2] >= 14 && @ViewBag.TrickIndexes[2] <= 26)
                 {
-                    <img id="trickCard2" src="@Url.Content(@ViewBag.TrickUrls[2])" alt="trick Card 2" />
+                    <img id="trickCard2" src="@Url.Content(@ViewBag.TrickUrls[2])"  alt="trick Card 2" />
                 }
                 else if (@ViewBag.TrickIndexes[2] >= 27 && @ViewBag.TrickIndexes[2] <= 39)
                 {
@@ -373,6 +349,19 @@
 
                 }
             }
+            <div class="belowP1">P1</div>
+            <div class="belowP2">P2</div>
+            <div class="belowP3">P3</div>
+            <div class="belowP4">P4</div>
+            @if (ViewBag.Winner > 0)
+            {
+                <div class="aboveTricks">Player @ViewBag.Winner Wins. Score = @ViewBag.TrickScore</div>
+            }
+            else
+            {
+                <div class="aboveTricks">Player @ViewBag.NextPlayer Plays first</div>
+            }
+
         </div>
         <div class="col-sm-3">
             <div id="playerDisplay">
@@ -623,7 +612,11 @@
             </div>
             <div class="bottom">Player1</div>
         </div>
-        <div class="col-sm-3"> </div>
+        <div class="col-sm-3">
+                
+            <a href='@Url.Action("PlayCard", "Cards")' class="btn btn-info" role="button">Next Trick</a>
+            
+        </div>
     </div>
 </div>
 

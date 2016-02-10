@@ -19,6 +19,7 @@ namespace Iteration1.Controllers.GameLevelController
             db.SaveChanges();
 
             Game game = new Game(true, 0);
+            Game.Teamscore = 0;
             Card card1 = new Card();
             Card card2 = new Card();
             Card card3 = new Card();
@@ -26,7 +27,7 @@ namespace Iteration1.Controllers.GameLevelController
             int cardIndex = 0;
             List<Card> startingDeck = db.GetDeck();
             int deuceIndex = card1.getDeuceIndex(startingDeck);
-            int firstPosition = game.GetFirstPlayerPosition(deuceIndex);
+            int firstPosition = game.GetPlayerPosition(deuceIndex);
             if (firstPosition == 2)
             {
                 card1 = game.GetFirstCard(startingDeck, deuceIndex);
@@ -67,6 +68,7 @@ namespace Iteration1.Controllers.GameLevelController
             ViewBag.Played = db.GetCardsPlayed();
             ViewBag.TrickUrls = db.GetTrickCards(); ;
             ViewBag.TrickIndexes = db.GetTrickIndexes();
+            ViewBag.Score = Game.Teamscore;
 
             return View();
         }
@@ -84,7 +86,7 @@ namespace Iteration1.Controllers.GameLevelController
             int cardIndex = 0;
             List<Card> startingDeck = db.GetDeck();
             int deuceIndex = card1.getDeuceIndex(startingDeck);
-            int firstPosition = game.GetFirstPlayerPosition(deuceIndex);
+            int firstPosition = game.GetPlayerPosition(deuceIndex);
             if (firstPosition == 1)
             {
                 db.UpdateDeck(id, 1);
@@ -132,11 +134,36 @@ namespace Iteration1.Controllers.GameLevelController
             }
             ViewBag.Words = db.GetCurrentDeck();
             ViewBag.Played = db.GetCardsPlayed();
-            ViewBag.TrickUrls = db.GetTrickCards();;
+            ViewBag.TrickUrls = db.GetTrickCards(); ;
+            ViewBag.TrickIndexes = db.GetTrickIndexes();
+            game.AddScore();
+            ViewBag.Score = Game.Teamscore;
+
+            int winner = db.GetTrickWinner();
+            if (winner > 0)
+            {
+                ViewBag.Winner = winner;
+                ViewBag.TrickScore = db.GetTrickScore();
+            }
+
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("PlayCard")]
+        public ActionResult PlayCard()
+        {
+            db.ResetTricks();
+            ViewBag.Words = db.GetCurrentDeck();
+            ViewBag.Played = db.GetCardsPlayed();
+            ViewBag.TrickUrls = db.GetTrickCards(); ;
             ViewBag.TrickIndexes = db.GetTrickIndexes();
             ViewBag.Score = Game.Teamscore;
+            int winner = db.GetTrickWinner();
+            ViewBag.NextPlayer = winner;
 
             return View();
         }
     }
+
 }
