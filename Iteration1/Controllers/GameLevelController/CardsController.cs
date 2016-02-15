@@ -92,6 +92,7 @@ namespace Iteration1.Controllers.GameLevelController
                 db.UpdateDeck(id, 1);
                 db.SaveChanges();
                 card1 = db.GetFirstTrick(1);
+                Game.trumpSuit = card1.CardSuit;
                 card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
                 cardIndex = db.GetCardId(card2.PlayerRef);
                 db.UpdateDeck(cardIndex, 2);
@@ -153,14 +154,39 @@ namespace Iteration1.Controllers.GameLevelController
         [Route("PlayCard")]
         public ActionResult PlayCard()
         {
+            int winner = db.GetTrickWinner();
+            ViewBag.NextPlayer = winner;
             db.ResetTricks();
+            Card card1 = new Card();
+            Game game = new Game();
+            int cardIndex = 0;
+            card1 = game.GetFirstcontinuous(winner);
+            if (winner == 2)
+            {
+                
+                cardIndex = db.GetCardId(card1.PlayerRef);
+                db.UpdateDeck(cardIndex, 1);
+                db.SaveChanges();
+            }
+            else if (winner == 3)
+            {
+               
+            }
+            else if (winner == 4)
+            {
+                
+            }
+            else
+            {
+                //do nothing player one chooses own card
+            }
+
             ViewBag.Words = db.GetCurrentDeck();
             ViewBag.Played = db.GetCardsPlayed();
             ViewBag.TrickUrls = db.GetTrickCards(); ;
             ViewBag.TrickIndexes = db.GetTrickIndexes();
             ViewBag.Score = Game.Teamscore;
-            int winner = db.GetTrickWinner();
-            ViewBag.NextPlayer = winner;
+            
 
             return View();
         }

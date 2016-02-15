@@ -1,4 +1,4 @@
-﻿using Iteration1.Data_Access_Layer;
+using Iteration1.Data_Access_Layer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ namespace Iteration1.Models.Game
     public class Game
     {
         public static int Teamscore = 0;
+        public static Suit trumpSuit = Suit.Blank;
         List<Trick> tricks;
         CardContext db;
 
@@ -28,15 +29,32 @@ namespace Iteration1.Models.Game
             db = new CardContext();
         }
         public int ID { get; private set; }
-        public bool IsFirstHalf { get; private set; }
-        public int Score { get; private set; }
+        public bool IsFirstHalf { get; set; }
+        public int Score { get; set; }
 
         public int AddScore()
         {
             tricks = db.GetTricks();
-            Card a = db.GetFirstTrick(tricks[0].ID);
             int trickScore = 0, index = 0, winningPlayer = 0;
-            var winner = tricks.Max(card => card.CardValue);
+            CardValue winner = CardValue.None;
+            bool isTrumps = false;
+            for (int i = 0; i < tricks.Count; i++)
+            {
+                if(tricks[i].CardSuit == trumpSuit)
+                {
+                    isTrumps = true;
+                    break;
+                }
+            }
+            if (isTrumps)
+            {
+                winner = tricks.Where(t => t.CardSuit == trumpSuit).Max(card => card.CardValue);
+            }
+            else
+            {
+                winner = tricks.Max(card => card.CardValue);
+            }
+                
             for (int i = 0; i < tricks.Count; i++)
             {
                 if (tricks[i].CardValue == winner)
@@ -48,27 +66,27 @@ namespace Iteration1.Models.Game
 
             for (int i = 0; i < tricks.Count; i++)
             {
-                if (tricks[i].CardValue == CardValue.Five && tricks[i].CardSuit == a.CardSuit || tricks[i].CardValue == CardValue.Nine && tricks[i].CardSuit == a.CardSuit)
+                if (tricks[i].CardValue == CardValue.Five && tricks[i].CardSuit == trumpSuit || tricks[i].CardValue == CardValue.Nine && tricks[i].CardSuit == trumpSuit)
                 {
                     trickScore += ((int)tricks[i].CardValue * 2);
                 }
-                else if (tricks[i].CardSuit != a.CardSuit && tricks[i].CardValue == CardValue.Nine || tricks[i].CardSuit != a.CardSuit && tricks[i].CardValue == CardValue.Five)
+                else if (tricks[i].CardSuit != trumpSuit && tricks[i].CardValue == CardValue.Nine || tricks[i].CardSuit != trumpSuit && tricks[i].CardValue == CardValue.Five)
                 {
                     trickScore += (int)tricks[i].CardValue;
                 }
-                else if (tricks[i].CardSuit == a.CardSuit && tricks[i].CardValue == CardValue.Ace)
+                else if (tricks[i].CardSuit == trumpSuit && tricks[i].CardValue == CardValue.Ace)
                 {
                     trickScore += 4;
                 }
-                else if (tricks[i].CardSuit == a.CardSuit && tricks[i].CardValue == CardValue.King)
+                else if (tricks[i].CardSuit == trumpSuit && tricks[i].CardValue == CardValue.King)
                 {
                     trickScore += 3;
                 }
-                else if (tricks[i].CardSuit == a.CardSuit && tricks[i].CardValue == CardValue.Queen)
+                else if (tricks[i].CardSuit == trumpSuit && tricks[i].CardValue == CardValue.Queen)
                 {
                     trickScore += 2;
                 }
-                else if (tricks[i].CardSuit == a.CardSuit && tricks[i].CardValue == CardValue.Jack)
+                else if (tricks[i].CardSuit == trumpSuit && tricks[i].CardValue == CardValue.Jack)
                 {
                     trickScore += 1;
                 }
@@ -97,12 +115,7 @@ namespace Iteration1.Models.Game
             switch (caseSwitch)
             {
                 case 1:
-                    List<Card> player1Hand = new List<Card>();
-                    for (int i = 0; i <= 12; i++)
-                    {
-                        player1Hand.Add(startDeck[i]);
-                    }
-                    firstCard = decideTrumps(player1Hand);
+                    //do nothing player 1 decides 
                     break;
                 case 2:
                     List<Card> player2Hand = new List<Card>();
@@ -736,35 +749,96 @@ namespace Iteration1.Models.Game
             //check which suit has higest number of cards, if more than one suit share highest, go for index 4
             int[] cardSuits = { diamonds, spades, clubs, hearts };
             Array.Sort(cardSuits);
-            Suit trumpSuit = Suit.Blank;
+            Suit chosenSuit = Suit.Blank;
             if (cardSuits[3] == diamonds)
             {
-                trumpSuit = Suit.Diamonds;
+                chosenSuit = Suit.Diamonds;
             }
             else if (cardSuits[3] == spades)
             {
-                trumpSuit = Suit.Spades;
+                chosenSuit = Suit.Spades;
             }
             else if (cardSuits[3] == clubs)
             {
-                trumpSuit = Suit.Clubs;
+                chosenSuit = Suit.Clubs;
             }
             else
             {
-                trumpSuit = Suit.Hearts;
+                chosenSuit = Suit.Hearts;
             }
             //Now play the highest card of that suit that is not a 9 or 5 
             //Minimum number of cards is 4 so there has to be at least 2 cards other than 9 or 5
             for (int i = 0; i < pitchersCards.Count; i++)
             {
-                if (pitchersCards[i].CardSuit == trumpSuit && pitchersCards[i].CardValue != CardValue.Nine && pitchersCards[i].CardValue != CardValue.Five)
+                if (pitchersCards[i].CardSuit == chosenSuit && pitchersCards[i].CardValue != CardValue.Nine && pitchersCards[i].CardValue != CardValue.Five)
                 {
                     //hand already sorted so 1st card is highest unless a 9 or 5
                     trumps = pitchersCards[i];
                     break;
                 }
             }
+            Game.trumpSuit = chosenSuit;
             return trumps;
+        }
+        public Card playFirstContinuous(List<Card> playersHand)
+        {
+            //simple rule to start, play the highest card that is not a 9 or 5
+            Card firstCard = new Card();
+
+            var highestCard = playersHand.Where(value => value.CardValue != CardValue.Nine && value.CardValue != CardValue.Five).Max(card => card.CardValue);
+            firstCard = playersHand.Where(card => card.CardValue == highestCard).FirstOrDefault();
+
+            return firstCard;
+        }
+
+        public Card GetFirstcontinuous(int winner)
+        {
+            Card firstCard = new Card();
+            List<Card> startDeck = db.GetDeck();
+            int caseSwitch = winner;
+
+            switch (caseSwitch)
+            {
+                case 1:
+                    //do nothing, player 1 decides
+                    break;
+                case 2:
+                    List<Card> player2Hand = new List<Card>();
+                    for (int i = 13; i <= 25; i++)
+                    {
+                        if(startDeck[i].CardPlayed == false)
+                        {
+                            player2Hand.Add(startDeck[i]);
+                        }
+                    }
+                    firstCard = playFirstContinuous(player2Hand);
+                    break;
+                case 3:
+                    List<Card> player3Hand = new List<Card>();
+                    for (int i = 26; i <= 38; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player3Hand.Add(startDeck[i]);
+                        }
+                    }
+                    firstCard = playFirstContinuous(player3Hand);
+                    break;
+                case 4:
+                    List<Card> player4Hand = new List<Card>();
+                    for (int i = 39; i <= 51; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player4Hand.Add(startDeck[i]);
+                        }
+                    }
+                    firstCard = playFirstContinuous(player4Hand);
+                    break;
+                default:
+                    break;
+            }
+            return firstCard;
         }
     }
 }
