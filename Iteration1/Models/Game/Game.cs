@@ -10,6 +10,8 @@ namespace Iteration1.Models.Game
     {
         public static int Teamscore = 0;
         public static Suit trumpSuit = Suit.Blank;
+        public static bool isPastFirstTrick = false;
+        public static int TrickCount = 0;
         List<Trick> tricks;
         CardContext db;
 
@@ -104,6 +106,7 @@ namespace Iteration1.Models.Game
             Hand hand = new Hand(gameId, tricks[0].TrickIndex, tricks[1].TrickIndex, tricks[2].TrickIndex, tricks[3].TrickIndex, trickScore, winningPlayer);
             db.Hand.Add(hand);
             db.SaveChanges();
+            TrickCount++;
             return trickScore;
         }
 
@@ -791,7 +794,7 @@ namespace Iteration1.Models.Game
             return firstCard;
         }
 
-        public Card GetFirstcontinuous(int winner)
+        public Card GetFirstContinuous(int winner)
         {
             Card firstCard = new Card();
             List<Card> startDeck = db.GetDeck();
@@ -839,6 +842,240 @@ namespace Iteration1.Models.Game
                     break;
             }
             return firstCard;
+        }
+        public Card GetSecondContinuous(int winner)
+        {
+            Card card2 = new Card();
+            List<Card> startDeck = db.GetDeck();
+            int caseSwitch = winner;
+
+            switch (caseSwitch)
+            {
+                case 1:
+                    //do nothing, player 1 decides
+                    break;
+                case 2:
+                    List<Card> player2Hand = new List<Card>();
+                    for (int i = 13; i <= 25; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player2Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card2 = PlaySecondContinuous(player2Hand);
+                    break;
+                case 3:
+                    List<Card> player3Hand = new List<Card>();
+                    for (int i = 26; i <= 38; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player3Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card2 = PlaySecondContinuous(player3Hand);
+                    break;
+                case 4:
+                    List<Card> player4Hand = new List<Card>();
+                    for (int i = 39; i <= 51; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player4Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card2 = PlaySecondContinuous(player4Hand);
+                    break;
+                default:
+                    break;
+            }
+
+
+            return card2;
+        }
+        public Card PlaySecondContinuous(List<Card> playersHand)
+        {
+            Card secondCard = new Card();
+            Card firstCardPlayed = db.GetFirstTrick(1);
+            //simple rule to start, play the lowest card that is not a 9 or 5 of suit led
+            //first check player has a card of suit led
+            bool hasSuitLed = false;
+            int numSuit = 0;
+            for (int i =0; i < playersHand.Count; i++)
+            {
+                if (playersHand[i].CardSuit == firstCardPlayed.CardSuit)
+                {
+                    hasSuitLed = true;
+                    numSuit++;
+                }
+            }
+            if (hasSuitLed == true && numSuit > 3)
+            {
+                var lowestCard = playersHand.Where(value => value.CardValue != CardValue.Nine && value.CardValue != CardValue.Five && value.CardSuit == firstCardPlayed.CardSuit).Min(card => card.CardValue);
+                secondCard = playersHand.Where(card => card.CardValue == lowestCard && card.CardSuit == firstCardPlayed.CardSuit).FirstOrDefault();
+            }
+            else if (hasSuitLed)
+            {
+                var lowestCard = playersHand.Where(value => value.CardSuit == firstCardPlayed.CardSuit).Min(card => card.CardValue);
+                secondCard = playersHand.Where(card => card.CardValue == lowestCard && card.CardSuit == firstCardPlayed.CardSuit).FirstOrDefault();
+            }
+            else
+            {
+                //none of suit led so plays lowest card of another suit that is not a 9 or 5
+                var lowestCard = playersHand.Where(value => value.CardValue != CardValue.Nine && value.CardValue != CardValue.Five).Min(card => card.CardValue);
+                secondCard = playersHand.Where(card => card.CardValue == lowestCard).FirstOrDefault();
+
+            }
+
+            return secondCard;
+        }
+        public Card GetThirdContinuous(int winner)
+        {
+            Card card3 = new Card();
+            List<Card> startDeck = db.GetDeck();
+            int caseSwitch = winner;
+
+            switch (caseSwitch)
+            {
+                case 1:
+                    //do nothing, player 1 decides
+                    break;
+                case 2:
+                    List<Card> player2Hand = new List<Card>();
+                    for (int i = 13; i <= 25; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player2Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card3 = PlaySecondContinuous(player2Hand);
+                    break;
+                case 3:
+                    List<Card> player3Hand = new List<Card>();
+                    for (int i = 26; i <= 38; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player3Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card3 = PlaySecondContinuous(player3Hand);
+                    break;
+                case 4:
+                    List<Card> player4Hand = new List<Card>();
+                    for (int i = 39; i <= 51; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player4Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card3 = PlaySecondContinuous(player4Hand);
+                    break;
+                default:
+                    break;
+            }
+            return card3;
+        }
+        public Card PlayThirdContinuous(List<Card> playersHand)
+        {
+            Card thirdCard = new Card();
+            //simple rule, if player one leads an ace give fat, else give lowest card
+            Card firstCardPlayed = db.GetFirstTrick(1);
+            if (firstCardPlayed.CardValue == CardValue.Ace)
+            {
+                thirdCard = GiveFat(playersHand, firstCardPlayed);//this method covers no of suit led
+            }
+
+            return thirdCard;
+        }
+        public Card GetFourthContinuous(int winner)
+        {
+            Card card4 = new Card();
+            List<Card> startDeck = db.GetDeck();
+            int caseSwitch = winner;
+
+            switch (caseSwitch)
+            {
+                case 1:
+                    //do nothing, player 1 decides
+                    break;
+                case 2:
+                    List<Card> player2Hand = new List<Card>();
+                    for (int i = 13; i <= 25; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player2Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card4 = PlaySecondContinuous(player2Hand);
+                    break;
+                case 3:
+                    List<Card> player3Hand = new List<Card>();
+                    for (int i = 26; i <= 38; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player3Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card4 = PlaySecondContinuous(player3Hand);
+                    break;
+                case 4:
+                    List<Card> player4Hand = new List<Card>();
+                    for (int i = 39; i <= 51; i++)
+                    {
+                        if (startDeck[i].CardPlayed == false)
+                        {
+                            player4Hand.Add(startDeck[i]);
+                        }
+                    }
+                    card4 = PlaySecondContinuous(player4Hand);
+                    break;
+                default:
+                    break;
+            }
+
+
+            return card4;
+        }
+        public Card PlayFourthContinuous(List<Card> playersHand)
+        {
+            Card fourthCard = new Card();
+            Card firstCardPlayed = db.GetFirstTrick(1);
+            //simple rule for now, just give lowest card
+            bool hasSuitLed = false;
+            int numSuit = 0;
+            for (int i = 0; i < playersHand.Count; i++)
+            {
+                if (playersHand[i].CardSuit == firstCardPlayed.CardSuit)
+                {
+                    hasSuitLed = true;
+                    numSuit++;
+                }
+            }
+            if (hasSuitLed == true && numSuit > 3)
+            {
+                var lowestCard = playersHand.Where(value => value.CardValue != CardValue.Nine && value.CardValue != CardValue.Five && value.CardSuit == firstCardPlayed.CardSuit).Min(card => card.CardValue);
+                fourthCard = playersHand.Where(card => card.CardValue == lowestCard && card.CardSuit == firstCardPlayed.CardSuit).FirstOrDefault();
+            }
+            else if (hasSuitLed)
+            {
+                var lowestCard = playersHand.Where(value => value.CardSuit == firstCardPlayed.CardSuit).Min(card => card.CardValue);
+                fourthCard = playersHand.Where(card => card.CardValue == lowestCard && card.CardSuit == firstCardPlayed.CardSuit).FirstOrDefault();
+            }
+            else
+            {
+                //none of suit led so plays lowest card of another suit that is not a 9 or 5
+                var lowestCard = playersHand.Where(value => value.CardValue != CardValue.Nine && value.CardValue != CardValue.Five).Min(card => card.CardValue);
+                fourthCard = playersHand.Where(card => card.CardValue == lowestCard).FirstOrDefault();
+
+            }
+
+            return fourthCard;
         }
     }
 }
