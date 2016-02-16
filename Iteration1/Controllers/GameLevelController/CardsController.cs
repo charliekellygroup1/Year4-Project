@@ -147,7 +147,6 @@ namespace Iteration1.Controllers.GameLevelController
                     db.UpdateDeck(id, 1);
                     db.SaveChanges();
                     card1 = db.GetFirstTrick(1);
-                    Game.trumpSuit = card1.CardSuit;
                     card2 = game.GetSecondContinuous(firstToPlay + 1);
                     cardIndex = db.GetCardId(card2.PlayerRef);
                     db.UpdateDeck(cardIndex, 2);
