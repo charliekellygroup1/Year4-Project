@@ -142,10 +142,7 @@
 
     </div>
     <div class="col-sm-3">
-        @if (ViewBag.Halftime == true)
-        {
-            <h2>First Half Over</h2>
-        } 
+       
     </div>
 </div>
 <div class="row">
@@ -618,9 +615,39 @@
             <div class="bottom">Player1</div>
         </div>
         <div class="col-sm-3">
-                
-            <a href='@Url.Action("PlayCard", "Cards")' class="btn btn-info" role="button">Next Trick</a>
-            
+            @if (ViewBag.HalfOver == false)
+            {
+                <a href='@Url.Action("PlayCard", "Cards")' class="btn btn-info" role="button">Next Trick</a>
+            }
+            else
+            {
+                <!--Example retrived online 17/02/2016 from http://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=modal-->
+                <div id="myModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">First Half Over</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Do you want to play the second half or start a new game?</p>
+                                @{ var targetScore = (80 - ViewBag.Score);}
+                                @{ var nextPitcher = ViewBag.NextPitcher;}
+                                <p class="text-warning"><small>You need to score @targetScore in the second half to win.</small></p>
+                                <p class="text-warning"><small>Player @nextPitcher pitches trumps in second half.</small></p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href='@Url.Action("NoviceLevel", "Cards")' type="button" class="btn btn-default">Start New Game</a>
+                                @{ var next = ViewBag.NextPitcher;}
+                                <a href='@Url.Action("NoviceLevel", "Cards", new RouteValueDictionary(new { id = @next }))' type="button" class="btn btn-default">Start New Game</a>
+                                <!--<form action="~/Cards/NoviceLevel/@next" method="post">
+                                    <input type="button" class="btn btn-primary"  value="Start Second Half"/>
+                                </form>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -6,13 +6,15 @@
     <title>@ViewBag.Title - Dublin Don</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-
-        function pauseFunction(millis) {
-            var now = new Date().getTime();
-            while (new Date().getTime() < now + millis) { /* do nothing */ }
-        }
+	$(document).ready(function(){
+		$("#myModal").modal('show');
+	});
     </script>
 
 </head>
