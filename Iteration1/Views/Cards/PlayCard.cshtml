@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-sm-3">
-    <h2>Novice Level Game</h2>
+    <h2><span class="label label-primary">Novice Level Game</span></h2>
     </div>
     <div class="col-sm-6">
         <div class="text-center">
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3"><h2>YourTeam's Score  <p class="text-center"><span class="label label-default">@ViewBag.Score</span></p></h2> </div>
+    <div class="col-sm-3"><h2><span class="label label-primary">YourTeam's Score</span><span class="label label-default">@ViewBag.Score</span></h2> </div>
 </div>
 <div class="row">
     <div class="text-center">
@@ -140,7 +140,7 @@
             {
                 <img id="player3_card13" src="@Url.Content(@ViewBag.Words[38])" alt="Card Face Down" />
             }
-            <div class="above3">Player3</div>
+            <div class="above3"><span class="label label-success">Player3</span></div>
         </div>
 
     </div>
@@ -258,7 +258,7 @@
                         <img id="player2_card13" src="@Url.Content(@ViewBag.Words[25])" alt="Card Face Down" />
                     }
                 </div>
-                <div class="above2">Player2</div>
+                <div class="above2"><span class="label label-danger">Player2</span></div>
             </div>
         </div>
         <div class="col-sm-6">
@@ -354,17 +354,32 @@
 
                 }
             }
-            <div class="belowP1">P1</div>
-            <div class="belowP2">P2</div>
-            <div class="belowP3">P3</div>
-            <div class="belowP4">P4</div>
+            <div class="belowP1"><span class="label label-success">P1</span></div>
+            <div class="belowP2"><span class="label label-danger">P2</span></div>
+            <div class="belowP3"><span class="label label-success">P3</span></div>
+            <div class="belowP4"><span class="label label-danger">P4</span></div>
             @if (ViewBag.Winner > 0)
             {
-                <div class="aboveTricks">Player @ViewBag.Winner Wins. Score = @ViewBag.TrickScore</div>
+                if (ViewBag.Winner == 1 || ViewBag.Winner == 3)
+                {
+                    <div class="aboveTricks"><span class="label label-success">Player @ViewBag.Winner Wins. Score = @ViewBag.TrickScore</span></div>
+                }
+                else
+                {
+                    <div class="aboveTricks"><span class="label label-danger">Player @ViewBag.Winner Wins. Score = @ViewBag.TrickScore</span></div>
+                }
             }
             else
             {
-                <div class="aboveTricks">Player @ViewBag.NextPlayer Plays first</div>
+                if (ViewBag.NextPlayer == 1 || ViewBag.NextPlayer == 3)
+                {
+                    <div class="aboveTricks"><span class="label label-success">Player @ViewBag.NextPlayer Plays first</span></div>
+                }
+                else
+                {
+                    <div class="aboveTricks"><span class="label label-danger">Player @ViewBag.NextPlayer Plays first</span></div>
+                }
+
             }
 
         </div>
@@ -475,7 +490,7 @@
                     <img id="player4_card13" src="@Url.Content(@ViewBag.Words[51])" alt="Card Face Down" />
                 }
             </div>
-            <div class="above4">Player4</div>
+            <div class="above4"><span class="label label-danger">Player4</span></div>
         </div>
     </div>
 </div>
@@ -732,12 +747,19 @@
                     }
                 }
             </div>
-            <div class="bottom">Player1</div>
+            <div class="bottom"><span class="label label-success">Player1</span></div>
         </div>
         <div class="col-sm-3">
             @if (ViewBag.HalfOver == false && ViewBag.GameOver == false)
             {
-                <a href='@Url.Action("PlayCard", "Cards")' class="btn btn-info" role="button">Next Trick</a>
+                if (ViewBag.HideNextButton == true)
+                {
+                    <a href='@Url.Action("PlayCard", "Cards")' class="btn btn-info imgGrey disabled" role="button">Next Trick</a>
+                }
+                else
+                {
+                    <a href='@Url.Action("PlayCard", "Cards")' class="btn btn-info" role="button">Next Trick</a>
+                }
             }
             else if (ViewBag.HalfOver == true && ViewBag.GameOver == false)
             {

@@ -257,7 +257,10 @@ namespace Iteration1.Controllers.GameLevelController
             ViewBag.TrickIndexes = db.GetTrickIndexes();
             game.AddScore();
             ViewBag.Score = Game.Teamscore;
-            ViewBag.PlayableCards = game.PlayableCards(firstPosition);
+            bool[] stopSelectCard = new bool[13];
+            ViewBag.PlayableCards = stopSelectCard;
+            bool hideNext = false;
+            ViewBag.HideNextButton = hideNext;
 
             int winner = db.GetTrickWinner();
             if (winner > 0)
@@ -347,6 +350,8 @@ namespace Iteration1.Controllers.GameLevelController
             ViewBag.TrickIndexes = db.GetTrickIndexes();
             ViewBag.Score = Game.Teamscore;
             ViewBag.PlayableCards = game.PlayableCards(winner);
+            bool hideNext = true;
+            ViewBag.HideNextButton = hideNext;
             bool firstHalfOver = false;
             if (Game.TrickCount == 13)
             {
