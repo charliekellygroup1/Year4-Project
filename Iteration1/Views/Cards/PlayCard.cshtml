@@ -13,9 +13,12 @@
         background-color: green;
         height: 150px;
     }
-
- 
+  .imgGrey {
+    opacity: 0.80;
+    filter: alpha(opacity=80); /* msie */
+    } 
 </style>
+
 <div class="row">
     <div class="col-sm-3">
     <h2>Novice Level Game</h2>
@@ -487,9 +490,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/1" method="post">
-                        <input type="image" id="player1_card1" src="@Url.Content(@ViewBag.Words[0])" alt="Card 1" />
-                    </form>
+                    if (ViewBag.PlayableCards[0] == true)
+                    {
+                        <form action="PlayCard/1" method="post">
+                            <input type="image" id="player1_card1" src="@Url.Content(@ViewBag.Words[0])" alt="Card 1" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/1" method="post">
+                            <input type="image" id="player1_card1" src="@Url.Content(@ViewBag.Words[0])" alt="Card 1" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[1] == true)
                 {
@@ -497,9 +509,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/2" method="post">
-                        <input type="image" id="player1_card2" src="@Url.Content(@ViewBag.Words[1])" alt="Card 2" />
-                    </form>
+                    if (ViewBag.PlayableCards[1] == true)
+                    {
+                        <form action="PlayCard/2" method="post">
+                            <input type="image" id="player1_card2" src="@Url.Content(@ViewBag.Words[1])" alt="Card 2" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/2" method="post">
+                            <input type="image" id="player1_card2" src="@Url.Content(@ViewBag.Words[1])" alt="Card 2" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[2] == true)
                 {
@@ -507,9 +528,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/3" method="post">
-                        <input type="image" id="player1_card3" src="@Url.Content(@ViewBag.Words[2])" alt="Card 3" />
-                    </form>
+                    if (ViewBag.PlayableCards[2] == true)
+                    {
+                        <form action="PlayCard/3" method="post">
+                            <input type="image" id="player1_card3" src="@Url.Content(@ViewBag.Words[2])" alt="Card 3" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/3" method="post">
+                            <input type="image" id="player1_card3" src="@Url.Content(@ViewBag.Words[2])" alt="Card 3" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[3] == true)
                 {
@@ -517,9 +547,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/4" method="post">
-                        <input type="image" id="player1_card4" src="@Url.Content(@ViewBag.Words[3])" alt="Card 4" />
-                    </form>
+                    if (ViewBag.PlayableCards[3] == true)
+                    {
+                        <form action="PlayCard/4" method="post">
+                            <input type="image" id="player1_card4" src="@Url.Content(@ViewBag.Words[3])" alt="Card 4" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/4" method="post">
+                            <input type="image" id="player1_card4" src="@Url.Content(@ViewBag.Words[3])" alt="Card 4" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[4] == true)
                 {
@@ -527,9 +566,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/5" method="post">
-                        <input type="image" id="player1_card5" src="@Url.Content(@ViewBag.Words[4])" alt="Card 5" />
-                    </form>
+                    if (ViewBag.PlayableCards[4] == true)
+                    {
+                        <form action="PlayCard/5" method="post">
+                            <input type="image" id="player1_card5" src="@Url.Content(@ViewBag.Words[4])" alt="Card 5" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/5" method="post">
+                            <input type="image" id="player1_card5" src="@Url.Content(@ViewBag.Words[4])" alt="Card 5" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[5] == true)
                 {
@@ -537,9 +585,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/6" method="post">
-                        <input type="image" id="player1_card6" src="@Url.Content(@ViewBag.Words[5])" alt="Card 6" />
-                    </form>
+                    if (ViewBag.PlayableCards[5] == true)
+                    {
+                        <form action="PlayCard/6" method="post">
+                            <input type="image" id="player1_card6" src="@Url.Content(@ViewBag.Words[5])" alt="Card 6" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/6" method="post">
+                            <input type="image" id="player1_card6" src="@Url.Content(@ViewBag.Words[5])" alt="Card 6" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[6] == true)
                 {
@@ -547,9 +604,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/7" method="post">
-                        <input type="image" id="player1_card7" src="@Url.Content(@ViewBag.Words[6])" alt="Card 7" />
-                    </form>
+                    if (ViewBag.PlayableCards[6] == true)
+                    {
+                        <form action="PlayCard/7" method="post">
+                            <input type="image" id="player1_card7" src="@Url.Content(@ViewBag.Words[6])" alt="Card 7" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/7" method="post">
+                            <input type="image" id="player1_card7" src="@Url.Content(@ViewBag.Words[6])" alt="Card 7" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[7] == true)
                 {
@@ -557,9 +623,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/8" method="post">
-                        <input type="image" id="player1_card8" src="@Url.Content(@ViewBag.Words[7])" alt="Card 8" />
-                    </form>
+                    if (ViewBag.PlayableCards[7] == true)
+                    {
+                        <form action="PlayCard/8" method="post">
+                            <input type="image" id="player1_card8" src="@Url.Content(@ViewBag.Words[7])" alt="Card 8" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/8" method="post">
+                            <input type="image" id="player1_card8" src="@Url.Content(@ViewBag.Words[7])" alt="Card 8" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[8] == true)
                 {
@@ -567,9 +642,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/9" method="post">
-                        <input type="image" id="player1_card9" src="@Url.Content(@ViewBag.Words[8])" alt="Card 9" />
-                    </form>
+                    if (ViewBag.PlayableCards[8] == true)
+                    {
+                        <form action="PlayCard/9" method="post">
+                            <input type="image" id="player1_card9" src="@Url.Content(@ViewBag.Words[8])" alt="Card 9" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/9" method="post">
+                            <input type="image" id="player1_card9" src="@Url.Content(@ViewBag.Words[8])" alt="Card 9" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[9] == true)
                 {
@@ -577,9 +661,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/10" method="post">
-                        <input type="image" id="player1_card10" src="@Url.Content(@ViewBag.Words[9])" alt="Card 10" />
-                    </form>
+                    if (ViewBag.PlayableCards[9] == true)
+                    {
+                        <form action="PlayCard/10" method="post">
+                            <input type="image" id="player1_card10" src="@Url.Content(@ViewBag.Words[9])" alt="Card 10" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/10" method="post">
+                            <input type="image" id="player1_card10" src="@Url.Content(@ViewBag.Words[9])" alt="Card 10" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[10] == true)
                 {
@@ -587,9 +680,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/11" method="post">
-                        <input type="image" id="player1_card11" src="@Url.Content(@ViewBag.Words[10])" alt="Card 11" />
-                    </form>
+                    if (ViewBag.PlayableCards[10] == true)
+                    {
+                        <form action="PlayCard/11" method="post">
+                            <input type="image" id="player1_card11" src="@Url.Content(@ViewBag.Words[10])" alt="Card 11" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/11" method="post">
+                            <input type="image" id="player1_card11" src="@Url.Content(@ViewBag.Words[10])" alt="Card 11" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[11] == true)
                 {
@@ -597,9 +699,18 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/12" method="post">
-                        <input type="image" id="player1_card12" src="@Url.Content(@ViewBag.Words[11])" alt="Card 12" />
-                    </form>
+                    if (ViewBag.PlayableCards[11] == true)
+                    {
+                        <form action="PlayCard/12" method="post">
+                            <input type="image" id="player1_card12" src="@Url.Content(@ViewBag.Words[11])" alt="Card 12" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/12" method="post">
+                            <input type="image" id="player1_card12" src="@Url.Content(@ViewBag.Words[11])" alt="Card 12" class="imgGrey" disabled />
+                        </form>
+                    }
                 }
                 @if (@ViewBag.Played[12] == true)
                 {
@@ -607,19 +718,28 @@
                 }
                 else
                 {
-                    <form action="~/Cards/PlayCard/13" method="post">
-                        <input type="image" id="player1_card13" src="@Url.Content(@ViewBag.Words[12])" alt="Card 13" />
-                    </form>
+                    if (ViewBag.PlayableCards[12] == true)
+                    {
+                        <form action="PlayCard/13" method="post">
+                            <input type="image" id="player1_card13" src="@Url.Content(@ViewBag.Words[12])" alt="Card 13" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form action="PlayCard/13" method="post">
+                            <input type="image" id="player1_card13" src="@Url.Content(@ViewBag.Words[12])" alt="Card 13" class="imgGrey" disabled/>
+                        </form>
+                    }
                 }
             </div>
             <div class="bottom">Player1</div>
         </div>
         <div class="col-sm-3">
-            @if (ViewBag.HalfOver == false)
+            @if (ViewBag.HalfOver == false && ViewBag.GameOver == false)
             {
                 <a href='@Url.Action("PlayCard", "Cards")' class="btn btn-info" role="button">Next Trick</a>
             }
-            else
+            else if (ViewBag.HalfOver == true && ViewBag.GameOver == false)
             {
                 <!--Example retrived online 17/02/2016 from http://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=modal-->
                 <div id="myModal" class="modal fade">
@@ -637,17 +757,51 @@
                                 <p class="text-warning"><small>Player @nextPitcher pitches trumps in second half.</small></p>
                             </div>
                             <div class="modal-footer">
-                                <a href='@Url.Action("NoviceLevel", "Cards")' type="button" class="btn btn-default">Start New Game</a>
-                                @{ var next = ViewBag.NextPitcher;}
-                                <a href='@Url.Action("NoviceLevel", "Cards", new RouteValueDictionary(new { id = @next }))' type="button" class="btn btn-default">Start New Game</a>
-                                <!--<form action="~/Cards/NoviceLevel/@next" method="post">
-                                    <input type="button" class="btn btn-primary"  value="Start Second Half"/>
-                                </form>-->
+                                <a href='@Url.Action("SinglePlayer", "Home")' type="button" class="btn btn-default">Start New Game</a>
+                                <a href='@Url.Action("NoviceLevel", "Cards")' type="button" class="btn btn-primary">Start Second Half</a>
+
+                               <!--<form action="~/Cards/NoviceLevel/@nextPitcher" method="post">
+                                    <input type="submit" value="Start Second Half" class="btn btn-primary"/>
+                                </form> -->                             
                             </div>
                         </div>
                     </div>
                 </div>
-            }
+                                    }
+                                    else if (ViewBag.HalfOver == true && ViewBag.GameOver == true)
+                                    {
+                     <!--Example retrived online 17/02/2016 from http://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=modal-->
+                                        <div id="myModal" class="modal fade">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title">Game Over</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @{ var score = ViewBag.Score;}
+                                                        @if(ViewBag.Score > 80)
+                                                        {
+                                                            <h1>Congratulations!!! You Won!!!!</h1>
+                                                            <p>Your overall score was @score</p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h1>Awww hard luck you lost, better luck next time</h1>
+                                                            <p>Your overall score was @score</p>
+                                                        }
+                                                        <p class="text-warning"><small>Do you want to play again?</small></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href='@Url.Action("Index", "Home")' type="button" class="btn btn-default">Exit</a>
+                                                        <a href='@Url.Action("SinglePlayer", "Home")' type="button" class="btn btn-primary">Start New Game</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    { <!--something went wrong-->}
         </div>
     </div>
 </div>

@@ -11,6 +11,8 @@ namespace Iteration1.Models.Game
         public static int Teamscore = 0;
         public static Suit trumpSuit = Suit.Blank;
         public static bool isPastFirstTrick = false;
+        public static bool isFirstHalf = true;
+        public static bool isGameOver = false;
         public static int TrickCount = 0;
         public static int NextPitcher = 0;
         List<Trick> tricks;
@@ -1220,6 +1222,59 @@ namespace Iteration1.Models.Game
             }
 
             return fourthCard;
+        }
+        public bool[] PlayableCards(int firstPlayer)
+        {
+            List<Card> startDeck = db.GetDeck();
+            bool[] allowedCards = new bool[13];
+            //If player one plays first he can play any card
+            if (firstPlayer == 1)
+            {
+                for(int i = 0; i < allowedCards.Length; i++)
+                {
+                    allowedCards[i] = true;
+                }
+            }
+            else
+            {
+                Card firstCardPlayed = db.GetFirstTrick(1);
+                List<Card> player1Hand = new List<Card>();
+                for (int i = 0; i <= 12; i++)
+                {
+                    player1Hand.Add(startDeck[i]);
+                }
+                int hasSuitLed = 0;
+                for (int i = 0; i < player1Hand.Count; i++)
+                {
+                    if(player1Hand[i].CardSuit == firstCardPlayed.CardSuit && player1Hand[i].CardPlayed == false)
+                    {
+                        hasSuitLed++;
+                    }
+                }
+                if (hasSuitLed > 0)
+                {
+                    for (int i = 0; i < player1Hand.Count; i++)
+                    {
+                        if (player1Hand[i].CardSuit == firstCardPlayed.CardSuit && player1Hand[i].CardPlayed == false)
+                        {
+                            allowedCards[i] = true;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < allowedCards.Length; i++)
+                    {
+                        if (player1Hand[i].CardPlayed == false)
+                        {
+                            allowedCards[i] = true;
+                        }
+                    }
+                }
+            }
+
+
+            return allowedCards;
         }
     }
 }

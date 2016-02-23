@@ -16,136 +16,121 @@ namespace Iteration1.Controllers.GameLevelController
         [Route("NoviceLevel")]
         public ActionResult NoviceLevel()
         {
-            db.ResetCardsPlayed();
-            db.SaveChanges();
+            bool firstHalf = Game.isFirstHalf;
             Game.isPastFirstTrick = false;
-            Game.TrickCount = 0;
-
-            Game game = new Game(true, 0);
-            Game.Teamscore = 0;
+            Game game = new Game(firstHalf, 0);
             Card card1 = new Card();
             Card card2 = new Card();
             Card card3 = new Card();
             Deck deck = new Deck();
-            int cardIndex = 0;
-            List<Card> startingDeck = db.GetDeck();
-            int deuceIndex = card1.getDeuceIndex(startingDeck);
-            int firstPosition = game.GetPlayerPosition(deuceIndex);
-            game.SetNextPitcher(firstPosition);
-            if (firstPosition == 2)
+            int cardIndex = 0, firstPosition = 0;
+
+            if (firstHalf)
             {
-                card1 = game.GetFirstCard(startingDeck, deuceIndex);
-                cardIndex = db.GetCardId(card1.PlayerRef);
-                db.UpdateDeck(cardIndex, 1);
-                card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
-                cardIndex = db.GetCardId(card2.PlayerRef);
-                db.UpdateDeck(cardIndex, 2);
-                card3 = game.GetThirdCard(startingDeck, card1, deuceIndex);
-                cardIndex = db.GetCardId(card3.PlayerRef);
-                db.UpdateDeck(cardIndex, 3);
+                db.ResetCardsPlayed();
                 db.SaveChanges();
-            }
-            else if (firstPosition == 3)
-            {
-                card1 = game.GetFirstCard(startingDeck, deuceIndex);
-                cardIndex = db.GetCardId(card1.PlayerRef);
-                db.UpdateDeck(cardIndex, 1);
-                card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
-                cardIndex = db.GetCardId(card2.PlayerRef);
-                db.UpdateDeck(cardIndex, 2);
-                db.SaveChanges();
-            }
-            else if (firstPosition == 4)
-            {
-                card1 = game.GetFirstCard(startingDeck, deuceIndex);
-                cardIndex = db.GetCardId(card1.PlayerRef);
-                db.UpdateDeck(cardIndex, 1);
-                db.SaveChanges();
+                Game.TrickCount = 0;
+                Game.Teamscore = 0;
+                Game.isGameOver = false;
+                Game.NextPitcher = 0;
+                List<Card> startingDeck = db.GetDeck();
+                int deuceIndex = card1.getDeuceIndex(startingDeck);
+                firstPosition = game.GetPlayerPosition(deuceIndex);
+                game.SetNextPitcher(firstPosition);
+                if (firstPosition == 2)
+                {
+                    card1 = game.GetFirstCard(startingDeck, deuceIndex);
+                    cardIndex = db.GetCardId(card1.PlayerRef);
+                    db.UpdateDeck(cardIndex, 1);
+                    card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
+                    cardIndex = db.GetCardId(card2.PlayerRef);
+                    db.UpdateDeck(cardIndex, 2);
+                    card3 = game.GetThirdCard(startingDeck, card1, deuceIndex);
+                    cardIndex = db.GetCardId(card3.PlayerRef);
+                    db.UpdateDeck(cardIndex, 3);
+                    db.SaveChanges();
+                }
+                else if (firstPosition == 3)
+                {
+                    card1 = game.GetFirstCard(startingDeck, deuceIndex);
+                    cardIndex = db.GetCardId(card1.PlayerRef);
+                    db.UpdateDeck(cardIndex, 1);
+                    card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
+                    cardIndex = db.GetCardId(card2.PlayerRef);
+                    db.UpdateDeck(cardIndex, 2);
+                    db.SaveChanges();
+                }
+                else if (firstPosition == 4)
+                {
+                    card1 = game.GetFirstCard(startingDeck, deuceIndex);
+                    cardIndex = db.GetCardId(card1.PlayerRef);
+                    db.UpdateDeck(cardIndex, 1);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    //do nothing player one chooses own card
+                }
             }
             else
             {
-                //do nothing player one chooses own card
+                db.ResetCardsPlayed();
+                db.SaveChanges();
+
+                List<Card> startingDeck = db.GetDeck();
+                firstPosition = Game.NextPitcher;
+                int deuceIndex = game.GetIndexOfPlayerById(firstPosition);
+                if (firstPosition == 2)
+                {
+                    card1 = game.GetFirstCard(startingDeck, deuceIndex);
+                    cardIndex = db.GetCardId(card1.PlayerRef);
+                    db.UpdateDeck(cardIndex, 1);
+                    card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
+                    cardIndex = db.GetCardId(card2.PlayerRef);
+                    db.UpdateDeck(cardIndex, 2);
+                    card3 = game.GetThirdCard(startingDeck, card1, deuceIndex);
+                    cardIndex = db.GetCardId(card3.PlayerRef);
+                    db.UpdateDeck(cardIndex, 3);
+                    db.SaveChanges();
+                }
+                else if (firstPosition == 3)
+                {
+                    card1 = game.GetFirstCard(startingDeck, deuceIndex);
+                    cardIndex = db.GetCardId(card1.PlayerRef);
+                    db.UpdateDeck(cardIndex, 1);
+                    card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
+                    cardIndex = db.GetCardId(card2.PlayerRef);
+                    db.UpdateDeck(cardIndex, 2);
+                    db.SaveChanges();
+                }
+                else if (firstPosition == 4)
+                {
+                    card1 = game.GetFirstCard(startingDeck, deuceIndex);
+                    cardIndex = db.GetCardId(card1.PlayerRef);
+                    db.UpdateDeck(cardIndex, 1);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    //do nothing player one chooses own card
+                }
             }
-
-
-
             ViewBag.Words = db.GetCurrentDeck();
             ViewBag.Played = db.GetCardsPlayed();
             ViewBag.TrickUrls = db.GetTrickCards(); ;
             ViewBag.TrickIndexes = db.GetTrickIndexes();
             ViewBag.Score = Game.Teamscore;
+            ViewBag.PlayableCards = game.PlayableCards(firstPosition);
 
             return View();
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("NoviceLevel/{id}")]
-        public ActionResult NoviceLevel(int id)
-        {
-            db.ResetCardsPlayed();
-            db.SaveChanges();
-            Game.isPastFirstTrick = false;
-            
-            Game game = new Game(false, 0);
-            Card card1 = new Card();
-            Card card2 = new Card();
-            Card card3 = new Card();
-            Deck deck = new Deck();
-            int cardIndex = 0;
-            List<Card> startingDeck = db.GetDeck();
-            int firstPosition = id;
-            int deuceIndex = game.GetIndexOfPlayerById(firstPosition);
-            if (firstPosition == 2)
-            {
-                card1 = game.GetFirstCard(startingDeck, deuceIndex);
-                cardIndex = db.GetCardId(card1.PlayerRef);
-                db.UpdateDeck(cardIndex, 1);
-                card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
-                cardIndex = db.GetCardId(card2.PlayerRef);
-                db.UpdateDeck(cardIndex, 2);
-                card3 = game.GetThirdCard(startingDeck, card1, deuceIndex);
-                cardIndex = db.GetCardId(card3.PlayerRef);
-                db.UpdateDeck(cardIndex, 3);
-                db.SaveChanges();
-            }
-            else if (firstPosition == 3)
-            {
-                card1 = game.GetFirstCard(startingDeck, deuceIndex);
-                cardIndex = db.GetCardId(card1.PlayerRef);
-                db.UpdateDeck(cardIndex, 1);
-                card2 = game.GetSecondCard(startingDeck, card1, deuceIndex);
-                cardIndex = db.GetCardId(card2.PlayerRef);
-                db.UpdateDeck(cardIndex, 2);
-                db.SaveChanges();
-            }
-            else if (firstPosition == 4)
-            {
-                card1 = game.GetFirstCard(startingDeck, deuceIndex);
-                cardIndex = db.GetCardId(card1.PlayerRef);
-                db.UpdateDeck(cardIndex, 1);
-                db.SaveChanges();
-            }
-            else
-            {
-                //do nothing player one chooses own card
-            }
-
-
-
-            ViewBag.Words = db.GetCurrentDeck();
-            ViewBag.Played = db.GetCardsPlayed();
-            ViewBag.TrickUrls = db.GetTrickCards(); ;
-            ViewBag.TrickIndexes = db.GetTrickIndexes();
-            ViewBag.Score = Game.Teamscore;
-
-            return View();
-        }
         [AllowAnonymous]
         [HttpPost]
         [Route("PlayCard/{id}")]
         public ActionResult PlayCard(int id)
         {
+            bool firstHalf = Game.isFirstHalf;
             Game game = new Game(true, 0);
             Card card1 = new Card();
             Card card2 = new Card();
@@ -154,8 +139,17 @@ namespace Iteration1.Controllers.GameLevelController
             Deck deck = new Deck();
             int cardIndex = 0;
             List<Card> startingDeck = db.GetDeck();
-            int deuceIndex = card1.getDeuceIndex(startingDeck);
-            int firstPosition = game.GetPlayerPosition(deuceIndex);
+            int firstPosition = 0, deuceIndex = 0;
+            if(firstHalf)
+            {
+                deuceIndex = card1.getDeuceIndex(startingDeck);
+                firstPosition = game.GetPlayerPosition(deuceIndex);
+            }
+            else
+            {
+                firstPosition = Game.NextPitcher;
+                deuceIndex = game.GetIndexOfPlayerById(firstPosition);
+            }
             if (!Game.isPastFirstTrick)
             {
                 Game.isPastFirstTrick = true;
@@ -208,34 +202,34 @@ namespace Iteration1.Controllers.GameLevelController
             }
             else
             {
-                int firstToPlay = db.GetTrickWinner();
-                if (firstToPlay == 1)
+                firstPosition = db.GetTrickWinner();
+                if (firstPosition == 1)
                 {
                     db.UpdateDeck(id, 1);
                     db.SaveChanges();
                     card1 = db.GetFirstTrick(1);
-                    card2 = game.GetSecondContinuous(firstToPlay + 1);
+                    card2 = game.GetSecondContinuous(firstPosition + 1);
                     cardIndex = db.GetCardId(card2.PlayerRef);
                     db.UpdateDeck(cardIndex, 2);
-                    card3 = game.GetThirdContinuous(firstToPlay + 2);
+                    card3 = game.GetThirdContinuous(firstPosition + 2);
                     cardIndex = db.GetCardId(card3.PlayerRef);
                     db.UpdateDeck(cardIndex, 3);
-                    card4 = game.GetFourthContinuous(firstToPlay + 3);
+                    card4 = game.GetFourthContinuous(firstPosition + 3);
                     cardIndex = db.GetCardId(card4.PlayerRef);
                     db.UpdateDeck(cardIndex, 4);
                     db.SaveChanges();
                 }
-                else if (firstToPlay == 2)
+                else if (firstPosition == 2)
                 {
                     db.UpdateDeck(id, 4);
                     db.SaveChanges();
                 }
-                else if (firstToPlay == 3)
+                else if (firstPosition == 3)
                 {
                     db.UpdateDeck(id, 3);
                     db.SaveChanges();
                     card1 = db.GetFirstTrick(1);
-                    card4 = game.GetFourthContinuous(firstToPlay - 1);
+                    card4 = game.GetFourthContinuous(firstPosition - 1);
                     cardIndex = db.GetCardId(card4.PlayerRef);
                     db.UpdateDeck(cardIndex, 4);
                     db.SaveChanges();
@@ -246,10 +240,10 @@ namespace Iteration1.Controllers.GameLevelController
                     db.UpdateDeck(id, 2);
                     db.SaveChanges();
                     card1 = db.GetFirstTrick(1);
-                    card3 = game.GetThirdContinuous(firstToPlay - 2);
+                    card3 = game.GetThirdContinuous(firstPosition - 2);
                     cardIndex = db.GetCardId(card3.PlayerRef);
                     db.UpdateDeck(cardIndex, 3);
-                    card4 = game.GetFourthContinuous(firstToPlay - 1);
+                    card4 = game.GetFourthContinuous(firstPosition - 1);
                     cardIndex = db.GetCardId(card4.PlayerRef);
                     db.UpdateDeck(cardIndex, 4);
                     db.SaveChanges();
@@ -263,6 +257,7 @@ namespace Iteration1.Controllers.GameLevelController
             ViewBag.TrickIndexes = db.GetTrickIndexes();
             game.AddScore();
             ViewBag.Score = Game.Teamscore;
+            ViewBag.PlayableCards = game.PlayableCards(firstPosition);
 
             int winner = db.GetTrickWinner();
             if (winner > 0)
@@ -274,8 +269,18 @@ namespace Iteration1.Controllers.GameLevelController
             if (Game.TrickCount == 13)
             {
                 firstHalfOver = true;
+                Game.isFirstHalf = false;
+            }
+            bool gameOver = false;
+            if (Game.TrickCount == 26)
+            {
+                gameOver = true;
+                firstHalfOver = true;
+                Game.isGameOver = true;
+                Game.isFirstHalf = true;
             }
             ViewBag.HalfOver = firstHalfOver;
+            ViewBag.GameOver = gameOver;
             ViewBag.NextPitcher = Game.NextPitcher;
 
             return View();
@@ -341,12 +346,22 @@ namespace Iteration1.Controllers.GameLevelController
             ViewBag.TrickUrls = db.GetTrickCards(); ;
             ViewBag.TrickIndexes = db.GetTrickIndexes();
             ViewBag.Score = Game.Teamscore;
+            ViewBag.PlayableCards = game.PlayableCards(winner);
             bool firstHalfOver = false;
             if (Game.TrickCount == 13)
             {
                 firstHalfOver = true;
+                Game.isFirstHalf = false;
+            }
+            bool gameOver = false;
+            if (Game.TrickCount == 26)
+            {
+                gameOver = true;
+                Game.isGameOver = true;
+                Game.isFirstHalf = true;
             }
             ViewBag.HalfOver = firstHalfOver;
+            ViewBag.GameOver = gameOver;
             ViewBag.NextPitcher = Game.NextPitcher;
 
             return View();
