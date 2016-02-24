@@ -9,6 +9,7 @@ namespace Iteration1.Models.Game
     public class Game
     {
         public static int Teamscore = 0;
+        public static int OppScore = 0;
         public static Suit trumpSuit = Suit.Blank;
         public static bool isPastFirstTrick = false;
         public static bool isFirstHalf = true;
@@ -112,6 +113,10 @@ namespace Iteration1.Models.Game
             if (winningPlayer == 1 || winningPlayer == 3)
             {
                 Teamscore += trickScore;
+            }
+            else
+            {
+                OppScore += trickScore;
             }
             Score += trickScore;
             int gameId = db.GetGameID();

@@ -26,11 +26,11 @@
     <div class="col-sm-6">
         <div class="text-center">
             <div class="btn-group">
-                <button type="button" class="btn btn-success">@Html.ActionLink("Reset Game", "NoviceLevel")</button>
+                <button type="button" class="btn btn-primary">@Html.ActionLink("Reset Game", "NoviceLevel")</button>
             </div>
         </div>
     </div>
-    <div class="col-sm-3"><h2><span class="label label-primary">YourTeam's Score</span><span class="label label-default">@ViewBag.Score</span></h2> </div>
+    <div class="col-sm-3"><h2><span class="label label-primary">Scores</span><span class="label label-success">@ViewBag.PlayerScore</span><span class="label label-danger">@ViewBag.OppScore</span></h2> </div>
 </div>
 <div class="row">
     <div class="text-center">
@@ -773,7 +773,7 @@
                             </div>
                             <div class="modal-body">
                                 <p>Do you want to play the second half or start a new game?</p>
-                                @{ var targetScore = (80 - ViewBag.Score);}
+                                @{ var targetScore = (80 - ViewBag.PlayerScore);}
                                 @{ var nextPitcher = ViewBag.NextPitcher;}
                                 <p class="text-warning"><small>You need to score @targetScore in the second half to win.</small></p>
                                 <p class="text-warning"><small>Player @nextPitcher pitches trumps in second half.</small></p>
@@ -790,7 +790,7 @@
                     </div>
                 </div>
                                     }
-                                    else if (ViewBag.HalfOver == true && ViewBag.GameOver == true)
+                                    @if (@ViewBag.PlayerScore >= 80 || ViewBag.OppScore >= 80)
                                     {
                      <!--Example retrived online 17/02/2016 from http://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=modal-->
                                         <div id="myModal" class="modal fade">
@@ -801,8 +801,8 @@
                                                         <h4 class="modal-title">Game Over</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        @{ var score = ViewBag.Score;}
-                                                        @if(ViewBag.Score > 80)
+                                                        @{ var score = ViewBag.PlayerScore;}
+                                                        @if(ViewBag.PlayerScore >= 80)
                                                         {
                                                             <h1>Congratulations!!! You Won!!!!</h1>
                                                             <p>Your overall score was @score</p>
@@ -822,8 +822,7 @@
                                             </div>
                                         </div>
                                     }
-                                    else
-                                    { <!--something went wrong-->}
+                                   
         </div>
     </div>
 </div>

@@ -31,6 +31,7 @@ namespace Iteration1.Controllers.GameLevelController
                 db.SaveChanges();
                 Game.TrickCount = 0;
                 Game.Teamscore = 0;
+                Game.OppScore = 0;
                 Game.isGameOver = false;
                 Game.NextPitcher = 0;
                 List<Card> startingDeck = db.GetDeck();
@@ -119,7 +120,8 @@ namespace Iteration1.Controllers.GameLevelController
             ViewBag.Played = db.GetCardsPlayed();
             ViewBag.TrickUrls = db.GetTrickCards(); ;
             ViewBag.TrickIndexes = db.GetTrickIndexes();
-            ViewBag.Score = Game.Teamscore;
+            ViewBag.PlayerScore = Game.Teamscore;
+            ViewBag.OppScore = Game.OppScore;
             ViewBag.PlayableCards = game.PlayableCards(firstPosition);
 
             return View();
@@ -256,7 +258,8 @@ namespace Iteration1.Controllers.GameLevelController
             ViewBag.TrickUrls = db.GetTrickCards();
             ViewBag.TrickIndexes = db.GetTrickIndexes();
             game.AddScore();
-            ViewBag.Score = Game.Teamscore;
+            ViewBag.PlayerScore = Game.Teamscore;
+            ViewBag.OppScore = Game.OppScore;
             bool[] stopSelectCard = new bool[13];
             ViewBag.PlayableCards = stopSelectCard;
             bool hideNext = false;
@@ -348,7 +351,8 @@ namespace Iteration1.Controllers.GameLevelController
             ViewBag.Played = db.GetCardsPlayed();
             ViewBag.TrickUrls = db.GetTrickCards(); ;
             ViewBag.TrickIndexes = db.GetTrickIndexes();
-            ViewBag.Score = Game.Teamscore;
+            ViewBag.PlayerScore = Game.Teamscore;
+            ViewBag.OppScore = Game.OppScore;
             ViewBag.PlayableCards = game.PlayableCards(winner);
             bool hideNext = true;
             ViewBag.HideNextButton = hideNext;

@@ -41,17 +41,19 @@
     bottom: 18px;
     left: 270px;
 }
+
+
 </style>
     <div class="row">
         <div class="col-sm-3"><h2><span class="label label-primary">Novice Level Game</span></h2></div>
         <div class="col-sm-6">
             <div class="text-center">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success">@Html.ActionLink("Reset Game", "NoviceLevel")</button>
+                    <button role="button" class="btn btn-primary">@Html.ActionLink("Reset Game", "NoviceLevel")</button>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3"><h2><span class="label label-primary">YourTeam's Score</span><span class="label label-default">@ViewBag.Score</span></h2> </div>
+        <div class="col-sm-3"><h2><span class="label label-primary">Scores</span><span class="label label-success">@ViewBag.PlayerScore</span><span class="label label-danger">@ViewBag.OppScore</span></h2> </div>
     </div>
     <div class="row">
         <div class="text-center">
