@@ -285,6 +285,13 @@ namespace Iteration1.Controllers.GameLevelController
                 Game.isGameOver = true;
                 Game.isFirstHalf = true;
             }
+            if (Game.Teamscore >= 80 || Game.OppScore >= 80)
+            {
+                gameOver = true;
+                firstHalfOver = true;
+                Game.isGameOver = true;
+                Game.isFirstHalf = true;
+            }
             ViewBag.HalfOver = firstHalfOver;
             ViewBag.GameOver = gameOver;
             ViewBag.NextPitcher = Game.NextPitcher;
@@ -366,6 +373,13 @@ namespace Iteration1.Controllers.GameLevelController
             if (Game.TrickCount == 26)
             {
                 gameOver = true;
+                Game.isGameOver = true;
+                Game.isFirstHalf = true;
+            }
+            if (Game.Teamscore >= 80 || Game.OppScore >= 80)
+            {
+                gameOver = true;
+                firstHalfOver = true;
                 Game.isGameOver = true;
                 Game.isFirstHalf = true;
             }
