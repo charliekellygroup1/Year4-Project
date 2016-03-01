@@ -66,10 +66,10 @@ namespace Iteration1.Models.Game
             }
             else
             {
-                winner = tricks.Max(card => card.CardValue);
+                winner = tricks.Where(t => t.CardSuit == tricks[0].CardSuit).Max(card => card.CardValue);
                 for (int i = 0; i < tricks.Count; i++)
                 {
-                    if (tricks[i].CardValue == winner)
+                    if (tricks[i].CardValue == winner && tricks[i].CardSuit == tricks[0].CardSuit)
                     {
                         index = tricks[i].TrickIndex;
                         winningPlayer = GetPlayerPosition(index);
@@ -194,15 +194,15 @@ namespace Iteration1.Models.Game
 
         public int GetPlayerPosition(int indexOfPlayer)
         {
-            if (indexOfPlayer >= 0 && indexOfPlayer <= 12)
+            if (indexOfPlayer >= 1 && indexOfPlayer <= 13)
             {
                 return 1;
             }
-            else if (indexOfPlayer >= 13 && indexOfPlayer <= 25)
+            else if (indexOfPlayer >= 14 && indexOfPlayer <= 26)
             {
                 return 2;
             }
-            else if (indexOfPlayer >= 26 && indexOfPlayer <= 38)
+            else if (indexOfPlayer >= 27 && indexOfPlayer <= 39)
             {
                 return 3;
             }
@@ -974,16 +974,20 @@ namespace Iteration1.Models.Game
             //simple rule to start, play the lowest card that is not a 9 or 5 of suit led
             //first check player has a card of suit led
             bool hasSuitLed = false;
-            int numSuit = 0;
-            for (int i =0; i < playersHand.Count; i++)
+            int numSuit = 0, numFat = 0;
+            for (int i = 0; i < playersHand.Count; i++)
             {
                 if (playersHand[i].CardSuit == firstCardPlayed.CardSuit)
                 {
+                    if (playersHand[i].CardValue == CardValue.Nine || playersHand[i].CardValue == CardValue.Five)
+                    {
+                        numFat++;
+                    }
                     hasSuitLed = true;
                     numSuit++;
                 }
             }
-            if (hasSuitLed == true && numSuit >= 3)
+            if (hasSuitLed == true && numSuit > numFat)
             {
                 var lowestCard = playersHand.Where(value => value.CardValue != CardValue.Nine && value.CardValue != CardValue.Five && value.CardSuit == firstCardPlayed.CardSuit).Min(card => card.CardValue);
                 secondCard = playersHand.Where(card => card.CardValue == lowestCard && card.CardSuit == firstCardPlayed.CardSuit).FirstOrDefault();
@@ -996,7 +1000,6 @@ namespace Iteration1.Models.Game
             else
             {
                 //none of suit led so plays lowest card of another suit that is not a 9 or 5 unless only 9' or 5's left
-                int numFat = 0;
                 for (int i = 0; i < playersHand.Count; i++)
                 {
                     if (playersHand[i].CardValue == CardValue.Nine || playersHand[i].CardValue == CardValue.Five)
@@ -1075,21 +1078,25 @@ namespace Iteration1.Models.Game
             Card firstCardPlayed = db.GetFirstTrick(1);
             if (firstCardPlayed.CardValue == CardValue.Ace)
             {
-                thirdCard = GiveFat(playersHand, firstCardPlayed);//this method covers no of suit led
+                thirdCard = GiveFat(playersHand, firstCardPlayed);//this method covers none of suit led
             }
             else
             {
                 bool hasSuitLed = false;
-                int numSuit = 0;
+                int numSuit = 0, numFat = 0;
                 for (int i = 0; i < playersHand.Count; i++)
                 {
                     if (playersHand[i].CardSuit == firstCardPlayed.CardSuit)
                     {
+                        if (playersHand[i].CardValue == CardValue.Nine || playersHand[i].CardValue == CardValue.Five)
+                        {
+                            numFat++;
+                        }
                         hasSuitLed = true;
                         numSuit++;
                     }
                 }
-                if (hasSuitLed == true && numSuit >= 3)
+                if (hasSuitLed == true && numSuit > numFat)
                 {
                     var lowestCard = playersHand.Where(value => value.CardValue != CardValue.Nine && value.CardValue != CardValue.Five && value.CardSuit == firstCardPlayed.CardSuit).Min(card => card.CardValue);
                     thirdCard = playersHand.Where(card => card.CardValue == lowestCard && card.CardSuit == firstCardPlayed.CardSuit).FirstOrDefault();
@@ -1102,7 +1109,6 @@ namespace Iteration1.Models.Game
                 else
                 {
                     //none of suit led so plays lowest card of another suit that is not a 9 or 5 unless only 9' or 5's left
-                    int numFat = 0;
                     for (int i = 0; i < playersHand.Count; i++)
                     {
                         if (playersHand[i].CardValue == CardValue.Nine || playersHand[i].CardValue == CardValue.Five)
@@ -1181,18 +1187,22 @@ namespace Iteration1.Models.Game
         {
             Card fourthCard = new Card();
             Card firstCardPlayed = db.GetFirstTrick(1);
-            //simple rule for now, just give lowest card
+            //simple rule for now, just give lowest card that is not a nine or five of suit led if possible
             bool hasSuitLed = false;
-            int numSuit = 0;
+            int numSuit = 0, numFat = 0;
             for (int i = 0; i < playersHand.Count; i++)
             {
                 if (playersHand[i].CardSuit == firstCardPlayed.CardSuit)
                 {
+                    if (playersHand[i].CardValue == CardValue.Nine || playersHand[i].CardValue == CardValue.Five)
+                    {
+                        numFat++;
+                    }
                     hasSuitLed = true;
                     numSuit++;
                 }
             }
-            if (hasSuitLed == true && numSuit >= 3)
+            if (hasSuitLed == true && numSuit > numFat)
             {
                 var lowestCard = playersHand.Where(value => value.CardValue != CardValue.Nine && value.CardValue != CardValue.Five && value.CardSuit == firstCardPlayed.CardSuit).Min(card => card.CardValue);
                 fourthCard = playersHand.Where(card => card.CardValue == lowestCard && card.CardSuit == firstCardPlayed.CardSuit).FirstOrDefault();
@@ -1205,7 +1215,6 @@ namespace Iteration1.Models.Game
             else
             {
                 //none of suit led so plays lowest card of another suit that is not a 9 or 5 unless only 9' or 5's left
-                int numFat = 0;
                 for (int i = 0; i < playersHand.Count; i++)
                 {
                     if (playersHand[i].CardValue == CardValue.Nine || playersHand[i].CardValue == CardValue.Five)
